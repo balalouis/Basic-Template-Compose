@@ -22,19 +22,19 @@ import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
 @Composable
-fun LoginScreen() {
+fun RegisterScreen() {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-        LoginText()
-        LoginTextFields()
-        LoginButton()
-        SignUp()
+        RegisterText()
+        RegisterTextFields()
+        RegisterButton()
+        SignIn()
     }
 }
 @Composable
-fun LoginText(){
+fun RegisterText(){
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = stringResource(id = R.string.login), modifier = Modifier.padding(
+            text = stringResource(id = R.string.register), modifier = Modifier.padding(
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
@@ -44,7 +44,7 @@ fun LoginText(){
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginTextFields(){
+fun RegisterTextFields(){
     Column(modifier = Modifier.fillMaxWidth()) {
         val emailValue = remember { mutableStateOf(TextFieldValue()) }
         TextField(
@@ -67,10 +67,21 @@ fun LoginTextFields(){
                 .padding(all = dimensionResource(id = R.dimen.dp_8))
                 .fillMaxWidth()
         )
+
+        val confirmPasswordValue = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = confirmPasswordValue.value,
+            onValueChange = { confirmPasswordValue.value = it },
+            label = { Text(text = stringResource(id = R.string.confirm_password)) },
+            singleLine = true,
+            modifier = Modifier
+                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .fillMaxWidth()
+        )
     }
 }
 @Composable
-fun LoginButton(){
+fun RegisterButton(){
     Button(onClick = { /*TODO*/ }, modifier = Modifier
         .fillMaxWidth()
         .padding(
@@ -78,14 +89,14 @@ fun LoginButton(){
                 id = R.dimen.dp_8
             ), end = dimensionResource(id = R.dimen.dp_8)
         )) {
-        Text(text = stringResource(id = R.string.login))
+        Text(text = stringResource(id = R.string.register))
     }
 }
 @Composable
-fun SignUp(){
+fun SignIn(){
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = stringResource(id = R.string.do_not_have_an_account), modifier = Modifier.padding(
+            text = stringResource(id = R.string.all_ready_have_an_account), modifier = Modifier.padding(
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
@@ -96,6 +107,6 @@ fun SignUp(){
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
+fun RegisterScreenPreview() {
+    RegisterScreen()
 }
