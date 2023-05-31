@@ -19,54 +19,79 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen() {
-    Column {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            val usernameValue = remember { mutableStateOf(TextFieldValue()) }
-            Text(
-                text = stringResource(id = R.string.user_name),
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dp_12))
-            )
-            TextField(
-                value = usernameValue.value,
-                onValueChange = { usernameValue.value = it },
-                singleLine = true,
-                modifier = Modifier.padding(all = dimensionResource(id = R.dimen.dp_16))
-            )
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            val passwordValue = remember { mutableStateOf(TextFieldValue()) }
-            Text(
-                text = stringResource(id = R.string.password),
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dp_12))
-            )
-            TextField(
-                value = passwordValue.value,
-                onValueChange = { passwordValue.value = it },
-                singleLine = true,
-                modifier = Modifier.padding(all = dimensionResource(id = R.dimen.dp_16))
-            )
-        }
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+        LoginText()
+        LoginTextFields()
+        LoginButton()
+        SignUp()
+    }
+}
+@Composable
+fun LoginText(){
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(id = R.string.login), modifier = Modifier.padding(
+                all = dimensionResource(
+                    id = R.dimen.dp_8
+                )
+            ), fontSize = 24.sp
+        )
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LoginTextFields(){
+    Column(modifier = Modifier.fillMaxWidth()) {
+        val emailValue = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = emailValue.value,
+            onValueChange = { emailValue.value = it },
+            label = { Text(text = stringResource(id = R.string.email))},
+            singleLine = true,
+            modifier = Modifier
+                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .fillMaxWidth(),
+        )
 
-        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dp_8))
-            ) {
-                Text(text = stringResource(id = R.string.login))
-            }
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.dp_8))
-            ) {
-                Text(text = stringResource(id = R.string.register))
-            }
-        }
-
+        val passwordValue = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = passwordValue.value,
+            onValueChange = { passwordValue.value = it },
+            label = { Text(text = stringResource(id = R.string.password)) },
+            singleLine = true,
+            modifier = Modifier
+                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .fillMaxWidth()
+        )
+    }
+}
+@Composable
+fun LoginButton(){
+    Button(onClick = { /*TODO*/ }, modifier = Modifier
+        .fillMaxWidth()
+        .padding(
+            start = dimensionResource(
+                id = R.dimen.dp_8
+            ), end = dimensionResource(id = R.dimen.dp_8)
+        )) {
+        Text(text = stringResource(id = R.string.login))
+    }
+}
+@Composable
+fun SignUp(){
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(id = R.string.do_not_have_an_account), modifier = Modifier.padding(
+                all = dimensionResource(
+                    id = R.dimen.dp_8
+                )
+            )
+        )
     }
 }
 
