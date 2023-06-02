@@ -6,11 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.basic.template.compose.screen.LoginScreen
+import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +27,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    var showLandingScreen by remember { mutableStateOf(true) }
+                    if (showLandingScreen) {
+                        SplashScreen(onTimeout = { showLandingScreen = false })
+                    } else {
+                        LoginScreen()
+                    }
                 }
             }
         }
