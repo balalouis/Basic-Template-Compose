@@ -10,22 +10,21 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import com.basic.template.compose.R
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(onTimeout: () -> Unit, modifier: Modifier = Modifier){
+fun SplashScreen(navController: NavController,modifier: Modifier = Modifier){
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        // This will always refer to the latest onTimeout function that
-        // LandingScreen was recomposed with
-        val currentOnTimeout by rememberUpdatedState(onTimeout)
 
-        // Create an effect that matches the lifecycle of LandingScreen.
-        // If LandingScreen recomposes or onTimeout changes,
-        // the delay shouldn't start again.
         LaunchedEffect(Unit) {
             delay(4000)
-            currentOnTimeout()
+            navController.navigate(LoginScreen.route){
+                popUpTo(SplashScreen.route){
+                    inclusive = true
+                }
+            }
         }
 
         Image(

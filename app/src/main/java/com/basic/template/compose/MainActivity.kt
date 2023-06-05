@@ -49,20 +49,13 @@ fun MyAppNavHost(
 ) {
     NavHost(navController = navController, modifier = modifier, startDestination = startDestination){
         composable(SplashScreen.route){
-            var showLandingScreen by remember { mutableStateOf(true) }
-            if (showLandingScreen) {
-                SplashScreen(onTimeout = { showLandingScreen = false })
-            } else {
-                LoginScreen(
-                    onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
-                    onNavigateToHome = {
-                        navController.navigate(HomeScreen.route)
-                    })
-            }
+            SplashScreen(navController)
         }
         composable(LoginScreen.route){
             LoginScreen(onNavigateToRegister = { navController.navigate(RegisterScreen.route) }, onNavigateToHome = {
-                navController.navigate(HomeScreen.route)})
+                navController.navigate(HomeScreen.route){popUpTo(LoginScreen.route){
+                    inclusive = true} }})
+
         }
 
         composable(RegisterScreen.route){
