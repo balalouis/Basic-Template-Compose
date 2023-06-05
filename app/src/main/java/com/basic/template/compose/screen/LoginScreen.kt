@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -16,18 +17,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
+
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onNavigateToRegister: (Int) -> Unit, onNavigateToHome: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
         LoginText()
         LoginTextFields()
-        LoginButton()
-        SignUp()
+        LoginButton(onNavigateToHome)
+        SignUp(onNavigateToRegister)
     }
 }
 @Composable
@@ -69,23 +72,30 @@ fun LoginTextFields(){
         )
     }
 }
+
 @Composable
-fun LoginButton(){
-    Button(onClick = { /*TODO*/ }, modifier = Modifier
-        .fillMaxWidth()
-        .padding(
-            start = dimensionResource(
-                id = R.dimen.dp_8
-            ), end = dimensionResource(id = R.dimen.dp_8)
-        )) {
+fun LoginButton(onClickToRegister: () -> Unit) {
+
+    Button(
+        onClick = onClickToRegister, modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = dimensionResource(
+                    id = R.dimen.dp_8
+                ), end = dimensionResource(id = R.dimen.dp_8)
+            )
+    ) {
         Text(text = stringResource(id = R.string.login))
     }
 }
+
 @Composable
-fun SignUp(){
+fun SignUp(onClickToRegister: (Int) -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(id = R.string.do_not_have_an_account), modifier = Modifier.padding(
+        ClickableText(
+            text = AnnotatedString(stringResource(id = R.string.do_not_have_an_account)),
+            onClick = onClickToRegister,
+            modifier = Modifier.padding(
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
@@ -97,5 +107,5 @@ fun SignUp(){
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+//    LoginScreen()
 }
