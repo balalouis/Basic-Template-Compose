@@ -48,7 +48,7 @@ fun MyAppNavHost(
     startDestination: String = "splash"
 ) {
     NavHost(navController = navController, modifier = modifier, startDestination = startDestination){
-        composable("splash"){
+        composable(SplashScreen.route){
             var showLandingScreen by remember { mutableStateOf(true) }
             if (showLandingScreen) {
                 SplashScreen(onTimeout = { showLandingScreen = false })
@@ -60,20 +60,20 @@ fun MyAppNavHost(
                     })
             }
         }
-        composable("login"){
+        composable(LoginScreen.route){
             LoginScreen(onNavigateToRegister = { navController.navigate("register") }, onNavigateToHome = {
                 navController.navigate("home")})
         }
 
-        composable("register"){
+        composable(RegisterScreen.route){
             RegisterScreen()
         }
 
-        composable("home"){
+        composable(HomeScreen.route){
             HomeScreen()
         }
 
-        composable("detail"){
+        composable(DetailScreen.route) {
             DetailScreen()
         }
 
