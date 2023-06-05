@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 fun MyAppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "splash"
+    startDestination: String = SplashScreen.route
 ) {
     NavHost(navController = navController, modifier = modifier, startDestination = startDestination){
         composable(SplashScreen.route){
@@ -54,15 +54,15 @@ fun MyAppNavHost(
                 SplashScreen(onTimeout = { showLandingScreen = false })
             } else {
                 LoginScreen(
-                    onNavigateToRegister = { navController.navigate("register") },
+                    onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
                     onNavigateToHome = {
-                        navController.navigate("home")
+                        navController.navigate(HomeScreen.route)
                     })
             }
         }
         composable(LoginScreen.route){
-            LoginScreen(onNavigateToRegister = { navController.navigate("register") }, onNavigateToHome = {
-                navController.navigate("home")})
+            LoginScreen(onNavigateToRegister = { navController.navigate(RegisterScreen.route) }, onNavigateToHome = {
+                navController.navigate(HomeScreen.route)})
         }
 
         composable(RegisterScreen.route){
