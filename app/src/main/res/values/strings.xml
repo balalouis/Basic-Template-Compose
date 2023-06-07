@@ -9,4 +9,5 @@
     <string name="detail_screen">Detail Screen</string>
     <string name="do_not_have_an_account">Don\'t have an account? Sign Up</string>
     <string name="all_ready_have_an_account">Already have an account? Sign In</string>
+    <string name="btn_detail">Detail Screen</string>
 </resources>

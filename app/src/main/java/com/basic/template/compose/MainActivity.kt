@@ -67,7 +67,9 @@ fun MyAppNavHost(
         }
 
         composable(HomeScreen.route){
-            HomeScreen()
+            HomeScreen(onNavigateToDetailScreen = {
+                navController.navigate(DetailScreen.route)
+            })
         }
 
         composable(DetailScreen.route) {
