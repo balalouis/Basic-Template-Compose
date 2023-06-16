@@ -1,5 +1,6 @@
 package com.basic.template.compose.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,8 @@ import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
 @Composable
-fun HomeScreen(onNavigateToDetailScreen:() ->Unit){
+fun HomeScreen(onNavigateToDetailScreen: () -> Unit, userName: String? = "") {
+    Log.d("-----> ","$userName")
     HomeScreenText(onNavigateToDetailScreen)
 }
 

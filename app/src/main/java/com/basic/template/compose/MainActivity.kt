@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.basic.template.compose.screen.DetailScreen
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.screen.LoginScreen
@@ -48,13 +50,20 @@ fun MyAppNavHost(
             SplashScreen(navController)
         }
         composable(LoginScreen.route){
-            LoginScreen(onNavigateToRegister = { navController.navigate(RegisterScreen.route) }, onNavigateToHome = {
-                navController.navigate(HomeScreen.route){popUpTo(LoginScreen.route){
-                    inclusive = true} }})
+            LoginScreen(
+                onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
+                onNavigateToHome = {
+                    navController.navigate(HomeScreen.route+"/1234") {
+                        popUpTo(LoginScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
 
         }
 
-        composable(RegisterScreen.route){
+        composable(RegisterScreen.route) {
             RegisterScreen(
                 onNavigateToLogin = { navController.navigateUp() },
                 onNavigateToHome = {
@@ -66,10 +75,11 @@ fun MyAppNavHost(
                 })
         }
 
-        composable(HomeScreen.route){
+        composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
+            NavType.StringType})){
             HomeScreen(onNavigateToDetailScreen = {
                 navController.navigate(DetailScreen.route)
-            })
+            }, it.arguments?.getString("userName"))
         }
 
         composable(DetailScreen.route) {
