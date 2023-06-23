@@ -1,13 +1,21 @@
 package com.basic.template.compose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -19,12 +27,13 @@ import androidx.navigation.navArgument
 import com.basic.template.compose.screen.DetailScreen
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.login.ui.LoginScreen
+import com.basic.template.compose.login.ui.LoginViewModel
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -55,15 +64,24 @@ fun MyAppNavHost(
             SplashScreen(navController)
         }
         composable(LoginScreen.route){
+            val userName = remember {
+                mutableStateOf(TextFieldValue(""))
+            }
+            val password = remember {
+                mutableStateOf(TextFieldValue(""))
+            }
+            Log.d("-----> LS", ""+userName.value.text)
+            val loginViewModelObj:LoginViewModel = hiltViewModel()
+
             LoginScreen(
                 onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
                 onNavigateToHome = {
-                    navController.navigate(HomeScreen.route+"/1234") {
+                    navController.navigate(HomeScreen.route + "/1234") {
                         popUpTo(LoginScreen.route) {
                             inclusive = true
                         }
                     }
-                }, loginViewModel = hiltViewModel()
+                }, userName = userName, password = password, loginViewModel = loginViewModelObj
             )
 
         }

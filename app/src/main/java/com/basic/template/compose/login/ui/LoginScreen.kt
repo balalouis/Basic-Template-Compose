@@ -1,6 +1,5 @@
 package com.basic.template.compose.login.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,10 +11,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -24,25 +21,23 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.basic.template.compose.R
 import com.basic.template.network.model.LoginRequestModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoginScreen(
     onNavigateToRegister: (Int) -> Unit,
     onNavigateToHome: () -> Unit,
+    userName:MutableState<TextFieldValue>,
+    password:MutableState<TextFieldValue>,
     loginViewModel: LoginViewModel
 ) {
-    val loginUiState by loginViewModel.uiState.collectAsState()
-    Log.d("-----> ", "" + loginUiState)
-    val loginRequestModel = LoginRequestModel(email = "eve.holt@reqres.in", password = "cityslicka")
-    loginViewModel.loginApiViewModel(loginRequestModel)
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
         LoginText()
-        LoginTextFields()
-        LoginButton(onNavigateToHome)
+        LoginTextFields(userName, password)
+        LoginButton(onNavigateToHome, loginViewModel, userName = userName, password = password)
         SignUp(onNavigateToRegister)
     }
 }
@@ -58,25 +53,27 @@ fun LoginText(){
         )
     }
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginTextFields(){
+fun LoginTextFields(
+    userName: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        val emailValue = remember { mutableStateOf(TextFieldValue()) }
         TextField(
-            value = emailValue.value,
-            onValueChange = { emailValue.value = it },
-            label = { Text(text = stringResource(id = R.string.email))},
+            value = userName.value,
+            onValueChange = { userName.value = it },
+            label = { Text(text = stringResource(id = R.string.email)) },
             singleLine = true,
             modifier = Modifier
                 .padding(all = dimensionResource(id = R.dimen.dp_8))
                 .fillMaxWidth(),
         )
 
-        val passwordValue = remember { mutableStateOf(TextFieldValue()) }
         TextField(
-            value = passwordValue.value,
-            onValueChange = { passwordValue.value = it },
+            value = password.value,
+            onValueChange = { password.value = it },
             label = { Text(text = stringResource(id = R.string.password)) },
             singleLine = true,
             modifier = Modifier
@@ -87,10 +84,22 @@ fun LoginTextFields(){
 }
 
 @Composable
-fun LoginButton(onClickToRegister: () -> Unit) {
-
+fun LoginButton(
+    onClickToRegister: () -> Unit,
+    loginViewModel: LoginViewModel,
+    userName: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>
+) {
+    val loginRequestModel =
+        LoginRequestModel(email = userName.value.text, password = password.value.text)
+    loginViewModel.loginApiViewModel(loginRequestModel)
+    val scope = rememberCoroutineScope()
     Button(
-        onClick = onClickToRegister, modifier = Modifier
+        onClick = {
+            scope.launch {
+                loginViewModel.loginApiViewModel(loginRequestModel)
+            }
+        }, modifier = Modifier
             .fillMaxWidth()
             .padding(
                 start = dimensionResource(

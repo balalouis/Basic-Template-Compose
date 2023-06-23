@@ -1,5 +1,6 @@
 package com.basic.template.compose.login.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basic.template.compose.login.domain.usecases.LoginUseCases
@@ -20,6 +21,7 @@ class LoginViewModel @Inject constructor(private var loginUseCases: LoginUseCase
     val uiState: StateFlow<LoginUiState> = _uiState
 
     fun loginApiViewModel(loginRequestModel: LoginRequestModel) {
+        Log.d("-----> ","api called")
         viewModelScope.launch {
             loginUseCases.login(loginRequestModel)
                 .catch {
