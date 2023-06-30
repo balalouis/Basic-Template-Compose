@@ -11,7 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,15 +24,18 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.basic.template.compose.R
+import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.network.model.LoginRequestModel
+import com.basic.template.network.model.LoginUiState
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     onNavigateToRegister: (Int) -> Unit,
-    onNavigateToHome: () -> Unit,
     userName:MutableState<TextFieldValue>,
     password:MutableState<TextFieldValue>,
     loginViewModel: LoginViewModel
@@ -37,7 +43,12 @@ fun LoginScreen(
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
         LoginText()
         LoginTextFields(userName, password)
-        LoginButton(onNavigateToHome, loginViewModel, userName = userName, password = password)
+        LoginButton(
+            navController,
+            loginViewModel,
+            userName = userName,
+            password = password
+        )
         SignUp(onNavigateToRegister)
     }
 }
@@ -85,15 +96,26 @@ fun LoginTextFields(
 
 @Composable
 fun LoginButton(
-    onClickToRegister: () -> Unit,
+    navController: NavController,
     loginViewModel: LoginViewModel,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>
 ) {
     val loginRequestModel =
         LoginRequestModel(email = userName.value.text, password = password.value.text)
-    loginViewModel.loginApiViewModel(loginRequestModel)
     val scope = rememberCoroutineScope()
+    val uiState by loginViewModel.uiState.collectAsState()
+    if(uiState is LoginUiState.Success){
+        if((uiState as LoginUiState.Success).loginResponseModel?.token?.isNotEmpty() == true) {
+            LaunchedEffect(Unit) {
+                navController.navigate(HomeScreen.route + "/1234") {
+                    popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
+    }
     Button(
         onClick = {
             scope.launch {

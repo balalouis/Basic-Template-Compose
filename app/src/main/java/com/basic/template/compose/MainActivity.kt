@@ -70,18 +70,12 @@ fun MyAppNavHost(
             val password = remember {
                 mutableStateOf(TextFieldValue(""))
             }
-            Log.d("-----> LS", ""+userName.value.text)
             val loginViewModelObj:LoginViewModel = hiltViewModel()
 
             LoginScreen(
+                navController,
                 onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
-                onNavigateToHome = {
-                    navController.navigate(HomeScreen.route + "/1234") {
-                        popUpTo(LoginScreen.route) {
-                            inclusive = true
-                        }
-                    }
-                }, userName = userName, password = password, loginViewModel = loginViewModelObj
+                userName = userName, password = password, loginViewModel = loginViewModelObj
             )
 
         }

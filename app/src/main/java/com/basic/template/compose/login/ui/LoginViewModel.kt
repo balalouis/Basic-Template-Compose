@@ -21,7 +21,6 @@ class LoginViewModel @Inject constructor(private var loginUseCases: LoginUseCase
     val uiState: StateFlow<LoginUiState> = _uiState
 
     fun loginApiViewModel(loginRequestModel: LoginRequestModel) {
-        Log.d("-----> ","api called")
         viewModelScope.launch {
             loginUseCases.login(loginRequestModel)
                 .catch {
