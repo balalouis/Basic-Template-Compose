@@ -1,20 +1,15 @@
 package com.basic.template.compose
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,16 +19,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.basic.template.compose.screen.DetailScreen
-import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.login.ui.LoginScreen
 import com.basic.template.compose.login.ui.LoginViewModel
+import com.basic.template.compose.registeration.ui.RegistrationViewModel
+import com.basic.template.compose.screen.DetailScreen
+import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -81,15 +76,20 @@ fun MyAppNavHost(
         }
 
         composable(RegisterScreen.route) {
+            val userName = remember {
+                mutableStateOf(TextFieldValue(""))
+            }
+            val password = remember {
+                mutableStateOf(TextFieldValue(""))
+            }
+            val registrationViewModel:RegistrationViewModel = hiltViewModel()
             RegisterScreen(
+                navController,
+                userName,
+                password,
                 onNavigateToLogin = { navController.navigateUp() },
-                onNavigateToHome = {
-                    navController.navigate(HomeScreen.route) {
-                        popUpTo(LoginScreen.route) {
-                            inclusive = true
-                        }
-                    }
-                })
+                registrationViewModel
+            )
         }
 
         composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
