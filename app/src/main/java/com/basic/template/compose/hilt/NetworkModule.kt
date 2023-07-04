@@ -1,4 +1,4 @@
-package com.basic.template.compose.login.hilt
+package com.basic.template.compose.hilt
 
 import com.basic.template.network.api.ApiWebService
 import dagger.Module
