@@ -28,6 +28,7 @@ import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
+import com.basic.template.compose.userlist.ui.UserListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -94,7 +95,7 @@ fun MyAppNavHost(
 
         composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
             NavType.StringType})){
-            HomeScreen(onNavigateToDetailScreen = {
+            UserListScreen(onNavigateToDetailScreen = {
                 navController.navigate(DetailScreen.route)
             }, it.arguments?.getString("userName"))
         }

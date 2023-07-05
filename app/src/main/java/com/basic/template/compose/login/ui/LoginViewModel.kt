@@ -1,6 +1,5 @@
 package com.basic.template.compose.login.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basic.template.compose.login.domain.usecases.LoginUseCases
