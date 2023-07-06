@@ -4,12 +4,14 @@ import com.basic.template.compose.login.data.datasource.LoginDataSource
 import com.basic.template.compose.login.data.datasource.LoginDataSourceImpl
 import com.basic.template.compose.login.data.repo.LoginRepoImpl
 import com.basic.template.compose.login.domain.repo.LoginRepo
-import com.basic.template.compose.login.domain.usecases.LoginUseCases
 import com.basic.template.compose.registeration.data.datasource.RegistrationDataSource
 import com.basic.template.compose.registeration.data.datasource.RegistrationDataSourceImpl
 import com.basic.template.compose.registeration.data.repo.RegistrationRepoImpl
 import com.basic.template.compose.registeration.domain.repo.RegistrationRepo
-import com.basic.template.compose.registeration.domain.usecases.RegistrationUseCases
+import com.basic.template.compose.userlist.data.datasource.UserListDataSource
+import com.basic.template.compose.userlist.data.datasource.UserListDataSourceImpl
+import com.basic.template.compose.userlist.data.repo.UserListRepoImpl
+import com.basic.template.compose.userlist.domain.repo.UserListRepo
 import com.basic.template.network.api.ApiWebService
 import dagger.Module
 import dagger.Provides
@@ -30,10 +32,6 @@ class AppModule {
         return LoginRepoImpl(loginDataSource)
     }
 
-    fun provideLoginUseCases(loginRepo: LoginRepo): LoginUseCases{
-        return LoginUseCases(loginRepo)
-    }
-
     @Provides
     fun provideRegisterDataSource(apiWebService: ApiWebService): RegistrationDataSource {
         return RegistrationDataSourceImpl(apiWebService)
@@ -44,7 +42,14 @@ class AppModule {
         return RegistrationRepoImpl(registrationDataSource)
     }
 
-    fun provideRegisterUseCases(registrationRepo: RegistrationRepo): RegistrationUseCases{
-        return RegistrationUseCases(registrationRepo)
+    @Provides
+    fun provideUserListDataSource(apiWebService: ApiWebService): UserListDataSource {
+        return UserListDataSourceImpl(apiWebService)
     }
+
+    @Provides
+    fun provideUserListRepository(userListDataSource: UserListDataSource): UserListRepo {
+        return UserListRepoImpl(userListDataSource)
+    }
+
 }

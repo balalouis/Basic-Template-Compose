@@ -29,6 +29,7 @@ import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import com.basic.template.compose.userlist.ui.UserListScreen
+import com.basic.template.compose.userlist.ui.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,9 +96,10 @@ fun MyAppNavHost(
 
         composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
             NavType.StringType})){
+            val userListViewModel:UserListViewModel = hiltViewModel()
             UserListScreen(onNavigateToDetailScreen = {
                 navController.navigate(DetailScreen.route)
-            }, it.arguments?.getString("userName"))
+            }, userListViewModel)
         }
 
         composable(DetailScreen.route) {
