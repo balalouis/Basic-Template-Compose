@@ -2,9 +2,11 @@ package com.basic.template.compose.userlist.ui
 
 import android.util.Log
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,42 +51,49 @@ fun UserListScreen(onNavigateToDetailScreen: () -> Unit, userListViewModel: User
 fun UserListItem(userList: List<User>){
     LazyColumn{
         items(userList) { user ->
-            UserMessageRow(user)
+            UserMessageRow(user, onClick = { Log.i("=====> ", user.userFirstName) })
         }
     }
 }
 
 @Composable
-fun UserMessageRow(user: User){
-    Row(modifier = Modifier.padding(all = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-        AsyncImage(
-            model = user.userAvatar,
-            contentDescription = "Translated description of what the image contains",
-            modifier = Modifier
-                .size(60.dp)
-                .clip(CircleShape)
-                .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape),
+fun UserMessageRow(user: User, onClick:() -> Unit){
 
-            )
-        Spacer(modifier = Modifier.width(8.dp))
-        Column {
-            Text(
-                text = user.userFirstName,
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = user.userLastName,
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = user.userEmail.toString(),
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall
-            )
+    Card(
+        modifier = Modifier
+            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .clickable { onClick() }
+    ){
+        Row(modifier = Modifier.padding(all = 8.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            AsyncImage(
+                model = user.userAvatar,
+                contentDescription = "Translated description of what the image contains",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape)
+                    .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape),
+
+                )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column {
+                Text(
+                    text = user.userFirstName,
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = user.userLastName,
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = user.userEmail.toString(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
         }
     }
 }
