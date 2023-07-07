@@ -97,13 +97,12 @@ fun MyAppNavHost(
         composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
             NavType.StringType})){
             val userListViewModel:UserListViewModel = hiltViewModel()
-            UserListScreen(onNavigateToDetailScreen = {
-                navController.navigate(DetailScreen.route)
-            }, userListViewModel)
+            UserListScreen(navController, userListViewModel)
         }
 
-        composable(DetailScreen.route) {
-            DetailScreen()
+        composable(DetailScreen.route+"/{userId}"){
+            val userId = it.arguments?.getInt("userId")
+            DetailScreen(userId)
         }
 
     }

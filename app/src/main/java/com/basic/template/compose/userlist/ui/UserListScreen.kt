@@ -27,31 +27,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.basic.template.compose.screen.DetailScreen
+import com.basic.template.compose.screen.HomeScreen
+import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.network.model.User
 import com.basic.template.network.model.UserUIState
 
 @Composable
-fun UserListScreen(onNavigateToDetailScreen: () -> Unit, userListViewModel: UserListViewModel) {
+fun UserListScreen(onNavController: NavController, userListViewModel: UserListViewModel) {
     val scope = rememberCoroutineScope()
     LaunchedEffect(Unit) {userListViewModel.fetchUserListApiViaViewModel()}
     val uiState by userListViewModel.uiState.collectAsState()
     if(uiState is UserUIState.Success){
         if((uiState as UserUIState.Success).userList?.size!! >0) {
-           Log.d("=====> ","${(uiState as UserUIState.Success).userList?.size}")
             val list: List<User>? = (uiState as UserUIState.Success).userList
             if (list != null) {
-                UserListItem(userList = list)
+                UserListItem(userList = list, navController = onNavController)
             }
         }
     }
 }
 
 @Composable
-fun UserListItem(userList: List<User>){
+fun UserListItem(userList: List<User>, navController: NavController){
     LazyColumn{
         items(userList) { user ->
-            UserMessageRow(user, onClick = { Log.i("=====> ", user.userFirstName) })
+            UserMessageRow(user, onClick = {
+                navController.navigate(DetailScreen.route + "/{${user.id}}")
+            })
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.basic.template.compose.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,8 @@ import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
 @Composable
-fun DetailScreen(){
+fun DetailScreen(userId:Int?) {
+    Log.d("=====> ","User ID:$userId")
     DetailScreenText()
 }
 
@@ -35,5 +37,5 @@ fun DetailScreenText(){
 @Preview(showBackground = true)
 @Composable
 fun DetailScreenPreview() {
-    DetailScreen()
+//    DetailScreen()
 }
