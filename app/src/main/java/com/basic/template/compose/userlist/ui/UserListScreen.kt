@@ -1,6 +1,5 @@
 package com.basic.template.compose.userlist.ui
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -30,8 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.screen.DetailScreen
-import com.basic.template.compose.screen.HomeScreen
-import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.network.model.User
 import com.basic.template.network.model.UserUIState
 

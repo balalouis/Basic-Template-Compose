@@ -1,4 +1,4 @@
-package com.basic.template.compose.screen
+package com.basic.template.compose.userdetail.ui
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
 @Composable
-fun DetailScreen(id:Int?) {
+fun UserDetailScreen(id:Int?) {
     DetailScreenText()
 }
 

@@ -22,12 +22,14 @@ import androidx.navigation.navArgument
 import com.basic.template.compose.login.ui.LoginScreen
 import com.basic.template.compose.login.ui.LoginViewModel
 import com.basic.template.compose.registeration.ui.RegistrationViewModel
+import com.basic.template.compose.registeration.ui.UserRegisterScreen
 import com.basic.template.compose.screen.DetailScreen
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
+import com.basic.template.compose.userdetail.ui.UserDetailScreen
 import com.basic.template.compose.userlist.ui.UserListScreen
 import com.basic.template.compose.userlist.ui.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,7 +87,7 @@ fun MyAppNavHost(
                 mutableStateOf(TextFieldValue(""))
             }
             val registrationViewModel:RegistrationViewModel = hiltViewModel()
-            RegisterScreen(
+            UserRegisterScreen(
                 navController,
                 userName,
                 password,
@@ -109,7 +111,7 @@ fun MyAppNavHost(
             arguments = listOf(navArgument(ARGUMENT_KEY) { type = NavType.IntType })
         ) {
             val id = it.arguments?.getInt(ARGUMENT_KEY)
-            DetailScreen(id)
+            UserDetailScreen(id)
         }
 
     }

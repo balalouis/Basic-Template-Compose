@@ -1,4 +1,4 @@
-package com.basic.template.compose.screen
+package com.basic.template.compose.registeration.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,13 +28,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.basic.template.compose.R
-import com.basic.template.compose.registeration.ui.RegistrationViewModel
+import com.basic.template.compose.screen.HomeScreen
+import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationUiState
 import kotlinx.coroutines.launch
 
 @Composable
-fun RegisterScreen(
+fun UserRegisterScreen(
     navControllerObj: NavController,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>,
