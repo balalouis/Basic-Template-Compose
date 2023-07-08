@@ -108,7 +108,7 @@ fun LoginButton(
     if(uiState is LoginUiState.Success){
         if((uiState as LoginUiState.Success).loginResponseModel?.token?.isNotEmpty() == true) {
             LaunchedEffect(Unit) {
-                navController.navigate(HomeScreen.route + "/1234") {
+                navController.navigate(HomeScreen.route) {
                     popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
                         inclusive = true
                     }

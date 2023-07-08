@@ -62,10 +62,10 @@ fun MyAppNavHost(
         }
         composable(LoginScreen.route){
             val userName = remember {
-                mutableStateOf(TextFieldValue(""))
+                mutableStateOf(TextFieldValue("eve.holt@reqres.in"))
             }
             val password = remember {
-                mutableStateOf(TextFieldValue(""))
+                mutableStateOf(TextFieldValue("cityslicka"))
             }
             val loginViewModelObj:LoginViewModel = hiltViewModel()
 
@@ -94,15 +94,22 @@ fun MyAppNavHost(
             )
         }
 
-        composable(HomeScreen.route+"/{userName}", arguments = listOf(navArgument("userName"){type=
-            NavType.StringType})){
+        composable(HomeScreen.route){
             val userListViewModel:UserListViewModel = hiltViewModel()
             UserListScreen(navController, userListViewModel)
         }
 
-        composable(DetailScreen.route+"/{userId}"){
-            val userId = it.arguments?.getInt("userId")
-            DetailScreen(userId)
+
+        /*
+                Need pass integer value like below
+         */
+        val ARGUMENT_KEY = "id"
+        composable(
+            DetailScreen.route.plus("/{$ARGUMENT_KEY}"),
+            arguments = listOf(navArgument(ARGUMENT_KEY) { type = NavType.IntType })
+        ) {
+            val id = it.arguments?.getInt(ARGUMENT_KEY)
+            DetailScreen(id)
         }
 
     }

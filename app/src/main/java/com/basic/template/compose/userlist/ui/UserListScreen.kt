@@ -55,7 +55,7 @@ fun UserListItem(userList: List<User>, navController: NavController){
     LazyColumn{
         items(userList) { user ->
             UserMessageRow(user, onClick = {
-                navController.navigate(DetailScreen.route + "/{${user.id}}")
+                navController.navigate(DetailScreen.route + "/${user.id}")
             })
         }
     }

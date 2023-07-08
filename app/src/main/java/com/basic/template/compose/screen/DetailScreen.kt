@@ -15,8 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.basic.template.compose.R
 
 @Composable
-fun DetailScreen(userId:Int?) {
-    Log.d("=====> ","User ID:$userId")
+fun DetailScreen(id:Int?) {
     DetailScreenText()
 }
 
