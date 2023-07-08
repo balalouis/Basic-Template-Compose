@@ -8,6 +8,10 @@ import com.basic.template.compose.registeration.data.datasource.RegistrationData
 import com.basic.template.compose.registeration.data.datasource.RegistrationDataSourceImpl
 import com.basic.template.compose.registeration.data.repo.RegistrationRepoImpl
 import com.basic.template.compose.registeration.domain.repo.RegistrationRepo
+import com.basic.template.compose.userdetail.data.datasource.UserDetailDataSource
+import com.basic.template.compose.userdetail.data.datasource.UserDetailDataSourceImpl
+import com.basic.template.compose.userdetail.data.repo.UserDetailRepoImpl
+import com.basic.template.compose.userdetail.domain.repo.UserDetailRepo
 import com.basic.template.compose.userlist.data.datasource.UserListDataSource
 import com.basic.template.compose.userlist.data.datasource.UserListDataSourceImpl
 import com.basic.template.compose.userlist.data.repo.UserListRepoImpl
@@ -52,4 +56,13 @@ class AppModule {
         return UserListRepoImpl(userListDataSource)
     }
 
+    @Provides
+    fun provideUserDetailDataSource(apiWebService: ApiWebService): UserDetailDataSource {
+        return UserDetailDataSourceImpl(apiWebService)
+    }
+
+    @Provides
+    fun provideUserDetailRepository(userDetailDataSource: UserDetailDataSource): UserDetailRepo {
+        return UserDetailRepoImpl(userDetailDataSource)
+    }
 }
