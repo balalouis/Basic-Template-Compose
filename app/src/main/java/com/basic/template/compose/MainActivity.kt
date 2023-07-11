@@ -30,6 +30,7 @@ import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import com.basic.template.compose.userdetail.ui.UserDetailScreen
+import com.basic.template.compose.userdetail.ui.UserDetailViewModel
 import com.basic.template.compose.userlist.ui.UserListScreen
 import com.basic.template.compose.userlist.ui.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,8 +111,9 @@ fun MyAppNavHost(
             DetailScreen.route.plus("/{$ARGUMENT_KEY}"),
             arguments = listOf(navArgument(ARGUMENT_KEY) { type = NavType.IntType })
         ) {
+            val userDetailViewModel: UserDetailViewModel = hiltViewModel()
             val id = it.arguments?.getInt(ARGUMENT_KEY)
-            UserDetailScreen(id)
+            UserDetailScreen(id, userDetailViewModel)
         }
 
     }
