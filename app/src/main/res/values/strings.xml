@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Basic-Template-Compose</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="detail_screen">Detail Screen</string>
+    <string name="do_not_have_an_account">Don\'t have an account? Sign Up</string>
+    <string name="all_ready_have_an_account">Already have an account? Sign In</string>
+    <string name="btn_detail">Detail Screen</string>
+    <string name="test_user_email">eve.holt@reqres.in</string>
+    <string name="test_user_password">cityslicka</string>
 </resources>
