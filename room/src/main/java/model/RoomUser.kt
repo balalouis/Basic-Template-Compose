@@ -10,16 +10,16 @@ data class RoomUser(
     var id: Int = 0,
 
     @ColumnInfo("email")
-    var userEmail: String? = null,
+    var email: String? = null,
 
     @ColumnInfo("first_name")
-    var userFirstName: String = "",
+    var firstName: String = "",
 
     @ColumnInfo("last_name")
-    var userLastName: String = "",
+    var lastName: String = "",
 
     @ColumnInfo("avatar")
-    var userAvatar: String = ""
+    var avatar: String = ""
 )
 
 
