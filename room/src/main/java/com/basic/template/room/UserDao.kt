@@ -25,7 +25,7 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE id = :id")
     fun findUserById(id: Int): Flow<RoomUser>
 
-    @Query("SELECT * FROM user_table WHERE userFirstName LIKE :firstName AND " + "userLastName LIKE :lastName LIMIT 1")
+    @Query("SELECT * FROM user_table WHERE first_name LIKE :firstName AND " + "last_name LIKE :lastName LIMIT 1")
     fun findUserByName(firstName: String, lastName: String): Flow<RoomUser>
 
     @Query("SELECT * FROM user_table")
