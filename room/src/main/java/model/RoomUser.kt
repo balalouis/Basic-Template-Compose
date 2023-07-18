@@ -13,13 +13,13 @@ data class RoomUser(
     var email: String? = null,
 
     @ColumnInfo("first_name")
-    var firstName: String = "",
+    var firstName: String? = "",
 
     @ColumnInfo("last_name")
-    var lastName: String = "",
+    var lastName: String? = "",
 
     @ColumnInfo("avatar")
-    var avatar: String = ""
+    var avatar: String? = ""
 )
 
 

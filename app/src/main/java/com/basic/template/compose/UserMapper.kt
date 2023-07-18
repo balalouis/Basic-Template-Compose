@@ -4,12 +4,12 @@ import com.basic.template.network.model.User
 import model.RoomUser
 
 object UserMapper {
-    fun convertUserToRoomUser(user: User): RoomUser =
+    fun convertUserToRoomUser(user: User?): RoomUser =
         RoomUser(
-            email = user.userEmail,
-            firstName = user.userFirstName,
-            lastName = user.userLastName,
-            avatar = user.userAvatar
+            email = user?.userEmail,
+            firstName = user?.userFirstName,
+            lastName = user?.userLastName,
+            avatar = user?.userAvatar
         )
 
     fun convertUserListToRoomUserList(userList: List<User>): List<RoomUser> {

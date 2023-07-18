@@ -17,6 +17,7 @@ import com.basic.template.compose.userlist.data.datasource.UserListDataSourceImp
 import com.basic.template.compose.userlist.data.repo.UserListRepoImpl
 import com.basic.template.compose.userlist.domain.repo.UserListRepo
 import com.basic.template.network.api.ApiWebService
+import com.basic.template.room.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,8 +58,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideUserDetailDataSource(apiWebService: ApiWebService): UserDetailDataSource {
-        return UserDetailDataSourceImpl(apiWebService)
+    fun provideUserDetailDataSource(userDao: UserDao, apiWebService: ApiWebService): UserDetailDataSource {
+        return UserDetailDataSourceImpl(userDao, apiWebService)
     }
 
     @Provides
