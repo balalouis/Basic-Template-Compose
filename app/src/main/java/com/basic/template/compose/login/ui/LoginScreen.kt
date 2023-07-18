@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.basic.template.compose.R
+import com.basic.template.compose.UserSession
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginUiState
@@ -106,7 +107,9 @@ fun LoginButton(
     val scope = rememberCoroutineScope()
     val uiState by loginViewModel.uiState.collectAsState()
     if(uiState is LoginUiState.Success){
-        if((uiState as LoginUiState.Success).loginResponseModel?.token?.isNotEmpty() == true) {
+        val token=(uiState as LoginUiState.Success).loginResponseModel?.token
+        if(token?.isNotEmpty() == true) {
+            UserSession.token = token
             LaunchedEffect(Unit) {
                 navController.navigate(HomeScreen.route) {
                     popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
