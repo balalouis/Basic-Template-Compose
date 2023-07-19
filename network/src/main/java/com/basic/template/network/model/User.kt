@@ -47,8 +47,3 @@ sealed class UserUIState {
     data class Success(var userList: List<User>?) : UserUIState()
     data class Failure(var exception: Throwable) : UserUIState()
 }
-
-sealed class UserDetailUIState {
-    data class Success(var user: User?) : UserDetailUIState()
-    data class Failure(var exception: Throwable) : UserDetailUIState()
-}

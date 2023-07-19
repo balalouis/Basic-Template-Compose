@@ -9,6 +9,9 @@ data class RoomUser(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
+    @ColumnInfo("userId")
+    var userId: Int? = 0,
+
     @ColumnInfo("email")
     var email: String? = null,
 
@@ -38,7 +41,7 @@ sealed class UserUIState {
     data class Failure(var exception: Throwable) : UserUIState()
 }
 
-sealed class UserDetailUIState {
-    data class Success(var user: RoomUser?) : UserDetailUIState()
-    data class Failure(var exception: Throwable) : UserDetailUIState()
+sealed class RoomUserDetailUIState {
+    data class Success(var user: RoomUser?) : RoomUserDetailUIState()
+    data class Failure(var exception: Throwable) : RoomUserDetailUIState()
 }

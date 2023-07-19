@@ -1,8 +1,10 @@
 package com.basic.template.compose.userdetail.data.datasource
 
-import com.basic.template.network.model.User
 import kotlinx.coroutines.flow.Flow
+import model.RoomUser
 
 interface UserDetailDataSource {
-    fun fetchUserDetail(userId: String): Flow<User?>
+    suspend fun fetchAndInsertUserIntoDB(userId: String)
+
+    fun fetchUserDetailFromDB(userId: Int): Flow<RoomUser?>
 }

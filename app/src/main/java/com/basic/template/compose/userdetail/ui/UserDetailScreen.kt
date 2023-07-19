@@ -21,8 +21,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.basic.template.network.model.User
-import com.basic.template.network.model.UserDetailUIState
+import model.RoomUser
+import model.RoomUserDetailUIState
 
 @Composable
 fun UserDetailScreen(id: Int?, userDetailViewModel: UserDetailViewModel) {
@@ -32,24 +32,27 @@ fun UserDetailScreen(id: Int?, userDetailViewModel: UserDetailViewModel) {
 @Composable
 fun DetailScreenText(id: Int?, userDetailViewModel: UserDetailViewModel) {
     LaunchedEffect(Unit) {
-        userDetailViewModel.fetchUserDetailViaViewModel(id.toString())
+        userDetailViewModel.fetchUserAndInsertIntoDB(id.toString())
+    }
+    LaunchedEffect(Unit) {
+        userDetailViewModel.fetchRoomUserFromDBViaViewModel(id!!.toInt())
     }
     val uiState by userDetailViewModel.uiState.collectAsState()
-    if (uiState is UserDetailUIState.Success) {
-        val userDetailUIState = uiState as UserDetailUIState.Success
-        if (userDetailUIState.user?.id != 0) {
-            UpdateUserDetail(user = userDetailUIState.user)
+    if (uiState is RoomUserDetailUIState.Success) {
+        val roomUserDetailUIState = uiState as RoomUserDetailUIState.Success
+        if (roomUserDetailUIState.user!=null) {
+            UpdateUserDetail(roomUser = roomUserDetailUIState.user)
         }
     }
 }
 
 @Composable
-fun UpdateUserDetail(user: User?){
+fun UpdateUserDetail(roomUser: RoomUser?){
     Column(modifier = Modifier
         .padding(all = 8.dp)
         .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         AsyncImage(
-            model = user?.userAvatar,
+            model = roomUser?.avatar,
             contentDescription = "Translated description of what the image contains",
             modifier = Modifier
                 .size(60.dp)
@@ -59,19 +62,19 @@ fun UpdateUserDetail(user: User?){
             )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = user?.userFirstName!!,
+            text = roomUser?.firstName!!,
             color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.titleSmall
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = user.userLastName,
+            text = roomUser.lastName!!,
             color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.titleSmall
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = user.userEmail.toString(),
+            text = roomUser.email.toString(),
             color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.titleSmall
         )
