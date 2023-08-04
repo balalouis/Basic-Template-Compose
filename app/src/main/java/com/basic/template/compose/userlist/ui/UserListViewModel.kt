@@ -18,6 +18,7 @@ class UserListViewModel @Inject constructor(var userListUseCases: UserListUseCas
 
     fun fetchUserListApiViaViewModel() {
         viewModelScope.launch {
+            _uiState.value = UserUIState.Loading
             userListUseCases.fetchUserList()
                 .catch {
                     _uiState.value = UserUIState.Failure(it)

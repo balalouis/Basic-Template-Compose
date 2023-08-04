@@ -44,6 +44,7 @@ data class SingleUser(@SerializedName("data") var user: User?) {
 }
 
 sealed class UserUIState {
+    object Loading: UserUIState()
     data class Success(var userList: List<User>?) : UserUIState()
     data class Failure(var exception: Throwable) : UserUIState()
 }

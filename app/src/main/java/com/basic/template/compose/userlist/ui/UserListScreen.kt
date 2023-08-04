@@ -1,5 +1,10 @@
 package com.basic.template.compose.userlist.ui
 
+import android.util.Log
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,12 +42,19 @@ fun UserListScreen(onNavController: NavController, userListViewModel: UserListVi
     LaunchedEffect(Unit) {userListViewModel.fetchUserListApiViaViewModel()}
     val uiState by userListViewModel.uiState.collectAsState()
     if(uiState is UserUIState.Success){
+        CircularProgressAnimated(showOrHide = false)
         if((uiState as UserUIState.Success).userList?.size!! >0) {
             val list: List<User>? = (uiState as UserUIState.Success).userList
             if (list != null) {
                 UserListItem(userList = list, navController = onNavController)
             }
         }
+    }else if(uiState is UserUIState.Failure){
+        val error = uiState as UserUIState.Failure
+        Log.i("=====> ","Faced error:"+error.exception.message)
+        CircularProgressAnimated(showOrHide = false)
+    }else if(uiState is UserUIState.Loading){
+        CircularProgressAnimated(showOrHide = true)
     }
 }
 
@@ -64,7 +77,9 @@ fun UserMessageRow(user: User, onClick:() -> Unit){
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .clickable { onClick() }
     ){
-        Row(modifier = Modifier.padding(all = 8.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier
+            .padding(all = 8.dp)
+            .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
                 model = user.userAvatar,
                 contentDescription = "Translated description of what the image contains",
@@ -95,6 +110,21 @@ fun UserMessageRow(user: User, onClick:() -> Unit){
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun CircularProgressAnimated(showOrHide:Boolean){
+    if(showOrHide) {
+        val progressValue = 0.75f
+        val infiniteTransition = rememberInfiniteTransition()
+
+        val progressAnimationValue by infiniteTransition.animateFloat(
+            initialValue = 0.0f,
+            targetValue = progressValue, animationSpec = infiniteRepeatable(animation = tween(900))
+        )
+
+        CircularProgressIndicator(progress = progressAnimationValue)
     }
 }
 
