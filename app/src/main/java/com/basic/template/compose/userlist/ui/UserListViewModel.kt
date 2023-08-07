@@ -24,7 +24,9 @@ class UserListViewModel @Inject constructor(var userListUseCases: UserListUseCas
                     _uiState.value = UserUIState.Failure(it)
                 }
                 .collect {
-                    _uiState.value = UserUIState.Success(it.userModelList)
+                    if(it.userModelList?.size!! >0) {
+                        _uiState.value = UserUIState.Success(it.userModelList)
+                    }
                 }
         }
     }

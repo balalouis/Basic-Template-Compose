@@ -1,15 +1,12 @@
 package com.basic.template.compose.userlist.ui
 
-import android.util.Log
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,47 +36,54 @@ import com.basic.template.network.model.UserUIState
 
 @Composable
 fun UserListScreen(onNavController: NavController, userListViewModel: UserListViewModel) {
-    LaunchedEffect(Unit) {userListViewModel.fetchUserListApiViaViewModel()}
+    LaunchedEffect(Unit) { userListViewModel.fetchUserListApiViaViewModel() }
     val uiState by userListViewModel.uiState.collectAsState()
-    if(uiState is UserUIState.Success){
-        CircularProgressAnimated(showOrHide = false)
-        if((uiState as UserUIState.Success).userList?.size!! >0) {
-            val list: List<User>? = (uiState as UserUIState.Success).userList
-            if (list != null) {
-                UserListItem(userList = list, navController = onNavController)
+    when (uiState) {
+        is UserUIState.Success -> {
+            val listItem = (uiState as UserUIState.Success).userList
+            if (listItem != null) {
+                UserListItem(userList = listItem, navController = onNavController)
             }
         }
-    }else if(uiState is UserUIState.Failure){
-        val error = uiState as UserUIState.Failure
-        Log.i("=====> ","Faced error:"+error.exception.message)
-        CircularProgressAnimated(showOrHide = false)
-    }else if(uiState is UserUIState.Loading){
-        CircularProgressAnimated(showOrHide = true)
-    }
-}
 
-@Composable
-fun UserListItem(userList: List<User>, navController: NavController){
-    LazyColumn{
-        items(userList) { user ->
-            UserMessageRow(user, onClick = {
-                navController.navigate(DetailScreen.route + "/${user.id}")
-            })
+        is UserUIState.Failure -> {
+
+        }
+
+        is UserUIState.Loading -> {
+            ProgressBar()
         }
     }
 }
 
 @Composable
-fun UserMessageRow(user: User, onClick:() -> Unit){
+fun UserListItem(userList: List<User>, navController: NavController) {
+
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        LazyColumn {
+            items(userList) { user ->
+                UserMessageRow(user, onClick = {
+                    navController.navigate(DetailScreen.route + "/${user.id}")
+                })
+            }
+        }
+    }
+
+}
+
+@Composable
+fun UserMessageRow(user: User, onClick: () -> Unit) {
 
     Card(
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 8.dp)
             .clickable { onClick() }
-    ){
-        Row(modifier = Modifier
-            .padding(all = 8.dp)
-            .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(all = 8.dp)
+                .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
                 model = user.userAvatar,
                 contentDescription = "Translated description of what the image contains",
@@ -114,17 +118,12 @@ fun UserMessageRow(user: User, onClick:() -> Unit){
 }
 
 @Composable
-private fun CircularProgressAnimated(showOrHide:Boolean){
-    if(showOrHide) {
-        val progressValue = 0.75f
-        val infiniteTransition = rememberInfiniteTransition()
-
-        val progressAnimationValue by infiniteTransition.animateFloat(
-            initialValue = 0.0f,
-            targetValue = progressValue, animationSpec = infiniteRepeatable(animation = tween(900))
-        )
-
-        CircularProgressIndicator(progress = progressAnimationValue)
+fun ProgressBar() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 
