@@ -120,7 +120,7 @@ fun UserMessageRow(user: User, onClick: () -> Unit) {
 @Composable
 fun ProgressBar() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()

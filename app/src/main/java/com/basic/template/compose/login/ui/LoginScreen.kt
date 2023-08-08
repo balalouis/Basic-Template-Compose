@@ -1,5 +1,6 @@
 package com.basic.template.compose.login.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import com.basic.template.compose.R
 import com.basic.template.compose.UserSession
 import com.basic.template.compose.screen.HomeScreen
+import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginUiState
 import kotlinx.coroutines.launch
@@ -37,8 +39,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     navController: NavController,
     onNavigateToRegister: (Int) -> Unit,
-    userName:MutableState<TextFieldValue>,
-    password:MutableState<TextFieldValue>,
+    userName: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>,
     loginViewModel: LoginViewModel
 ) {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
@@ -53,8 +55,9 @@ fun LoginScreen(
         SignUp(onNavigateToRegister)
     }
 }
+
 @Composable
-fun LoginText(){
+fun LoginText() {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(id = R.string.login), modifier = Modifier.padding(
@@ -106,17 +109,27 @@ fun LoginButton(
         LoginRequestModel(email = userName.value.text, password = password.value.text)
     val scope = rememberCoroutineScope()
     val uiState by loginViewModel.uiState.collectAsState()
-    if(uiState is LoginUiState.Success){
-        val token=(uiState as LoginUiState.Success).loginResponseModel?.token
-        if(token?.isNotEmpty() == true) {
-            UserSession.token = token
-            LaunchedEffect(Unit) {
-                navController.navigate(HomeScreen.route) {
-                    popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
-                        inclusive = true
+    when (uiState) {
+        is LoginUiState.Success -> {
+            val token = (uiState as LoginUiState.Success).loginResponseModel?.token
+            if (token?.isNotEmpty() == true) {
+                UserSession.token = token
+                LaunchedEffect(Unit) {
+                    navController.navigate(HomeScreen.route) {
+                        popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
+                            inclusive = true
+                        }
                     }
                 }
             }
+        }
+
+        is LoginUiState.Error -> {
+            Log.d("-----> ", "")
+        }
+
+        is LoginUiState.Loading -> {
+            ProgressBar()
         }
     }
     Button(
