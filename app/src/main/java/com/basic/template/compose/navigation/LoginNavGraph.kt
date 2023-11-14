@@ -36,17 +36,21 @@ fun NavGraphBuilder.loginNavGraph(navController: NavController) {
             LoginScreen(
                 navController,
                 onNavigateToRegister = { navController.navigate(RegisterScreen.route) },
-                userName = userName, password = password, loginViewModel = loginViewModelObj
+                userName = userName,
+                password = password,
+                loginViewModel = loginViewModelObj,
+                title = "Login Screen",
+                showBackButton = false
             )
 
         }
 
         composable(RegisterScreen.route) {
             val userName = remember {
-                mutableStateOf(TextFieldValue(""))
+                mutableStateOf(TextFieldValue("eve.holt@reqres.in"))
             }
             val password = remember {
-                mutableStateOf(TextFieldValue(""))
+                mutableStateOf(TextFieldValue("cityslicka"))
             }
             val registrationViewModel: RegistrationViewModel = hiltViewModel()
             UserRegisterScreen(
@@ -54,7 +58,9 @@ fun NavGraphBuilder.loginNavGraph(navController: NavController) {
                 userName,
                 password,
                 onNavigateToLogin = { navController.navigateUp() },
-                registrationViewModel
+                registrationViewModel,
+                title = "Register Screen",
+                showBackButton = true
             )
         }
     }

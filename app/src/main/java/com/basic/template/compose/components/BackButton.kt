@@ -28,5 +28,4 @@ fun BackButton( onClick: OnClickFunction) {
             tint = MaterialTheme.colorScheme.primary
         )
     }
-
 }

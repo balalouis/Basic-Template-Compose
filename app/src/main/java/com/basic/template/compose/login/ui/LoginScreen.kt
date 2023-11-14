@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -28,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.basic.template.compose.R
 import com.basic.template.compose.UserSession
+import com.basic.template.compose.components.BackButton
+import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.network.model.LoginRequestModel
@@ -36,24 +41,42 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "LoginScreen"
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navController: NavController,
     onNavigateToRegister: (Int) -> Unit,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>,
-    loginViewModel: LoginViewModel
+    loginViewModel: LoginViewModel,
+    title: String,
+    showBackButton: Boolean = true
 ) {
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-        LoginText()
-        LoginTextFields(userName, password)
-        LoginButton(
-            navController,
-            loginViewModel,
-            userName = userName,
-            password = password
-        )
-        SignUp(onNavigateToRegister)
+    Scaffold(topBar = {
+        CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
+            if (showBackButton) {
+                BackButton {
+                    navController.popBackStack()
+                }
+            }
+        })
+    }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
+            verticalArrangement = Arrangement.Center
+        ) {
+            LoginText()
+            LoginTextFields(userName, password)
+            LoginButton(
+                navController,
+                loginViewModel,
+                userName = userName,
+                password = password
+            )
+            SignUp(onNavigateToRegister)
+        }
     }
 }
 
@@ -116,7 +139,7 @@ fun LoginButton(
             if (token?.isNotEmpty() == true) {
                 UserSession.token = token
                 LaunchedEffect(Unit) {
-                    navController.navigate(HomeScreen.route) {
+                    navController.navigate(NavRoutes.UserRoute.name) {
                         popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
                             inclusive = true
                         }

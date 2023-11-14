@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -29,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.basic.template.compose.R
+import com.basic.template.compose.components.BackButton
+import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.network.model.RegistrationRequestModel
@@ -38,20 +42,40 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "RegisterScreen"
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserRegisterScreen(
     navControllerObj: NavController,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>,
     onNavigateToLogin: (Int) -> Unit,
-    registrationViewModel: RegistrationViewModel
+    registrationViewModel: RegistrationViewModel,
+    title: String,
+    showBackButton: Boolean = true
 ) {
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-        RegisterText()
-        RegisterTextFields(userName, password)
-        RegisterButton(navControllerObj, registrationViewModel, userName, password)
-        SignIn(onNavigateToLogin)
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(text = title) }, navigationIcon = {
+            if (showBackButton) {
+                BackButton {
+                    navControllerObj.popBackStack()
+                }
+            }
+        })
+    }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
+            verticalArrangement = Arrangement.Center
+        ) {
+            RegisterText()
+            RegisterTextFields(userName, password)
+            RegisterButton(navControllerObj, registrationViewModel, userName, password)
+            SignIn(onNavigateToLogin)
+        }
     }
+
+
 }
 
 @Composable
@@ -124,7 +148,7 @@ fun RegisterButton(
         is RegistrationUiState.Success -> {
             if ((uiState as RegistrationUiState.Success).registrationResponseModel?.token?.isNotEmpty() == true) {
                 LaunchedEffect(Unit) {
-                    navControllerObj.navigate(HomeScreen.route + "/1234") {
+                    navControllerObj.navigate(NavRoutes.UserRoute.name) {
                         popUpTo(LoginScreen.route) {
                             inclusive = true
                         }
