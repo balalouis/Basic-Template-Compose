@@ -34,6 +34,7 @@ import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginUiState
 import kotlinx.coroutines.launch
 
+private const val TAG = "LoginScreen"
 
 @Composable
 fun LoginScreen(
@@ -125,7 +126,10 @@ fun LoginButton(
         }
 
         is LoginUiState.Error -> {
-            Log.d("-----> ", "")
+            Log.d(
+                TAG,
+                "" + ((uiState as LoginUiState.Error).exception.localizedMessage?.toString())
+            )
         }
 
         is LoginUiState.Loading -> {

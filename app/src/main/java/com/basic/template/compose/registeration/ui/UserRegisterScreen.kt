@@ -1,5 +1,6 @@
 package com.basic.template.compose.registeration.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +35,9 @@ import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationUiState
 import kotlinx.coroutines.launch
 
+
+private const val TAG = "RegisterScreen"
+
 @Composable
 fun UserRegisterScreen(
     navControllerObj: NavController,
@@ -49,8 +53,9 @@ fun UserRegisterScreen(
         SignIn(onNavigateToLogin)
     }
 }
+
 @Composable
-fun RegisterText(){
+fun RegisterText() {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(id = R.string.register), modifier = Modifier.padding(
@@ -61,15 +66,18 @@ fun RegisterText(){
         )
     }
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterTextFields(userName: MutableState<TextFieldValue>,
-                       password: MutableState<TextFieldValue>){
+fun RegisterTextFields(
+    userName: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TextField(
             value = userName.value,
             onValueChange = { userName.value = it },
-            label = { Text(text = stringResource(id = R.string.email))},
+            label = { Text(text = stringResource(id = R.string.email)) },
             singleLine = true,
             modifier = Modifier
                 .padding(all = dimensionResource(id = R.dimen.dp_8))
@@ -112,15 +120,24 @@ fun RegisterButton(
     val scope = rememberCoroutineScope()
     val uiState by registrationViewModel.uiState.collectAsState()
 
-    if (uiState is RegistrationUiState.Success) {
-        if ((uiState as RegistrationUiState.Success).registrationResponseModel?.token?.isNotEmpty() == true) {
-            LaunchedEffect(Unit) {
-                navControllerObj.navigate(HomeScreen.route + "/1234") {
-                    popUpTo(LoginScreen.route) {
-                        inclusive = true
+    when (uiState) {
+        is RegistrationUiState.Success -> {
+            if ((uiState as RegistrationUiState.Success).registrationResponseModel?.token?.isNotEmpty() == true) {
+                LaunchedEffect(Unit) {
+                    navControllerObj.navigate(HomeScreen.route + "/1234") {
+                        popUpTo(LoginScreen.route) {
+                            inclusive = true
+                        }
                     }
                 }
             }
+        }
+
+        is RegistrationUiState.Error -> {
+            Log.d(
+                TAG,
+                "" + ((uiState as RegistrationUiState.Error).exception.localizedMessage?.toString())
+            )
         }
     }
 
@@ -140,8 +157,9 @@ fun RegisterButton(
         Text(text = stringResource(id = R.string.register))
     }
 }
+
 @Composable
-fun SignIn(onClickToLogin: (Int) -> Unit){
+fun SignIn(onClickToLogin: (Int) -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         ClickableText(
             text = AnnotatedString(stringResource(id = R.string.all_ready_have_an_account)),

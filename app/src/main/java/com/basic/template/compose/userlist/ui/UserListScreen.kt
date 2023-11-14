@@ -1,12 +1,12 @@
 package com.basic.template.compose.userlist.ui
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,8 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.screen.DetailScreen
+import com.basic.template.network.model.LoginUiState
 import com.basic.template.network.model.User
 import com.basic.template.network.model.UserUIState
+
+private const val TAG = "UserListScreen"
 
 @Composable
 fun UserListScreen(onNavController: NavController, userListViewModel: UserListViewModel) {
@@ -47,7 +50,10 @@ fun UserListScreen(onNavController: NavController, userListViewModel: UserListVi
         }
 
         is UserUIState.Failure -> {
-
+            Log.d(
+                TAG,
+                "" + ((uiState as UserUIState.Failure).exception.localizedMessage?.toString())
+            )
         }
 
         is UserUIState.Loading -> {

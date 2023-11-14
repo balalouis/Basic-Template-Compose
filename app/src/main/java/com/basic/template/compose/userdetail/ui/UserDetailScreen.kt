@@ -1,5 +1,6 @@
 package com.basic.template.compose.userdetail.ui
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +22,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.basic.template.network.model.LoginUiState
 import model.RoomUser
 import model.RoomUserDetailUIState
+
+
+private const val TAG = "UserDetailScreen"
 
 @Composable
 fun UserDetailScreen(id: Int?, userDetailViewModel: UserDetailViewModel) {
@@ -38,19 +43,31 @@ fun DetailScreenText(id: Int?, userDetailViewModel: UserDetailViewModel) {
         userDetailViewModel.fetchRoomUserFromDBViaViewModel(id!!.toInt())
     }
     val uiState by userDetailViewModel.uiState.collectAsState()
-    if (uiState is RoomUserDetailUIState.Success) {
-        val roomUserDetailUIState = uiState as RoomUserDetailUIState.Success
-        if (roomUserDetailUIState.user!=null) {
-            UpdateUserDetail(roomUser = roomUserDetailUIState.user)
+
+    when (uiState) {
+        is RoomUserDetailUIState.Success -> {
+            val roomUserDetailUIState = uiState as RoomUserDetailUIState.Success
+            if (roomUserDetailUIState.user != null) {
+                UpdateUserDetail(roomUser = roomUserDetailUIState.user)
+            }
+        }
+
+        is RoomUserDetailUIState.Failure -> {
+            Log.d(
+                TAG,
+                "" + ((uiState as RoomUserDetailUIState.Failure).exception.localizedMessage?.toString())
+            )
         }
     }
 }
 
 @Composable
-fun UpdateUserDetail(roomUser: RoomUser?){
-    Column(modifier = Modifier
-        .padding(all = 8.dp)
-        .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+fun UpdateUserDetail(roomUser: RoomUser?) {
+    Column(
+        modifier = Modifier
+            .padding(all = 8.dp)
+            .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         AsyncImage(
             model = roomUser?.avatar,
             contentDescription = "Translated description of what the image contains",
