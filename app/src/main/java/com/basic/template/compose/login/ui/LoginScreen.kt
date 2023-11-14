@@ -135,6 +135,8 @@ fun LoginButton(
         is LoginUiState.Loading -> {
             ProgressBar()
         }
+
+        else -> {}
     }
     Button(
         onClick = {
