@@ -3,6 +3,7 @@ package com.basic.template.compose.userdetail.ui
 import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,7 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,7 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.basic.template.compose.appbar.MyAppBar
+import com.basic.template.compose.userlist.ui.UserListScreen
+import com.basic.template.compose.userlist.ui.UserListViewModel
 import com.basic.template.network.model.LoginUiState
 import model.RoomUser
 import model.RoomUserDetailUIState
@@ -29,13 +37,25 @@ import model.RoomUserDetailUIState
 
 private const val TAG = "UserDetailScreen"
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserDetailScreen(title: Int, id: Int?, userDetailViewModel: UserDetailViewModel) {
-    DetailScreenText(id, userDetailViewModel)
+fun UserDetailWithAppBar(
+    title: Int,
+    id: Int?,
+    userDetailViewModel: UserDetailViewModel, drawerState: DrawerState
+) {
+    Scaffold(topBar = { MyAppBar(drawerState = drawerState, title = title) }) {
+        DetailScreenText(id, userDetailViewModel, it)
+    }
 }
 
 @Composable
-fun DetailScreenText(id: Int?, userDetailViewModel: UserDetailViewModel) {
+fun DetailScreenText(
+    id: Int?,
+    userDetailViewModel: UserDetailViewModel,
+    paddingValues: PaddingValues
+) {
     LaunchedEffect(Unit) {
         userDetailViewModel.fetchUserAndInsertIntoDB(id.toString())
     }
@@ -48,7 +68,7 @@ fun DetailScreenText(id: Int?, userDetailViewModel: UserDetailViewModel) {
         is RoomUserDetailUIState.Success -> {
             val roomUserDetailUIState = uiState as RoomUserDetailUIState.Success
             if (roomUserDetailUIState.user != null) {
-                UpdateUserDetail(roomUser = roomUserDetailUIState.user)
+                UpdateUserDetail(roomUser = roomUserDetailUIState.user, paddingValues)
             }
         }
 
@@ -62,10 +82,10 @@ fun DetailScreenText(id: Int?, userDetailViewModel: UserDetailViewModel) {
 }
 
 @Composable
-fun UpdateUserDetail(roomUser: RoomUser?) {
+fun UpdateUserDetail(roomUser: RoomUser?, paddingValues: PaddingValues) {
     Column(
         modifier = Modifier
-            .padding(all = 8.dp)
+            .padding(paddingValues)
             .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(

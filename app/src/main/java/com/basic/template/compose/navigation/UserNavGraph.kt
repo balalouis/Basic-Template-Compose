@@ -16,8 +16,8 @@ import com.basic.template.compose.screen.AboutScreen
 import com.basic.template.compose.screen.SettingsScreen
 import com.basic.template.compose.screen.UserDetailScreen
 import com.basic.template.compose.screen.UserListScreen
-import com.basic.template.compose.userdetail.ui.UserDetailScreen
 import com.basic.template.compose.userdetail.ui.UserDetailViewModel
+import com.basic.template.compose.userdetail.ui.UserDetailWithAppBar
 import com.basic.template.compose.userlist.ui.UserListViewModel
 import com.basic.template.compose.userlist.ui.UserListWithAppBar
 
@@ -44,7 +44,12 @@ fun NavGraphBuilder.userNavGraph(navController: NavController, drawerState: Draw
         ) {
             val userDetailViewModel: UserDetailViewModel = hiltViewModel()
             val id = it.arguments?.getInt(ARGUMENT_KEY)
-            UserDetailScreen(R.string.user_detail, id, userDetailViewModel)
+            UserDetailWithAppBar(
+                title = R.string.user_detail,
+                id = id,
+                userDetailViewModel = userDetailViewModel,
+                drawerState = drawerState
+            )
         }
 
         composable(AboutScreen.route) {
