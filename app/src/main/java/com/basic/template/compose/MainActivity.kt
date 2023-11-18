@@ -51,7 +51,7 @@ fun MainCompose(
                     AppDrawerContent(
                         drawerState = drawerState,
                         menuItems = DrawerParams.drawerButtons,
-                        defaultPick = AboutScreen.route
+                        defaultPick = UserListScreen.route
                     ) { onUserPickedOption ->
                         when (onUserPickedOption) {
                             UserListScreen.route -> {
@@ -59,11 +59,19 @@ fun MainCompose(
                             }
 
                             AboutScreen.route -> {
-                                navController.navigate(AboutScreen.route)
+                                navController.navigate(AboutScreen.route) {
+                                    popUpTo(UserListScreen.route) {
+                                        inclusive = false
+                                    }
+                                }
                             }
 
                             SettingsScreen.route -> {
-                                navController.navigate(SettingsScreen.route)
+                                navController.navigate(SettingsScreen.route) {
+                                    popUpTo(UserListScreen.route) {
+                                        inclusive = false
+                                    }
+                                }
                             }
                         }
                     }
