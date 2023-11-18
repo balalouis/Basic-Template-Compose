@@ -1,5 +1,7 @@
 package com.basic.template.compose.navigation
 
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -7,18 +9,29 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.basic.template.compose.screen.DetailScreen
-import com.basic.template.compose.screen.HomeScreen
+import com.basic.template.compose.R
+import com.basic.template.compose.navdrawer.AboutScreen
+import com.basic.template.compose.navdrawer.SettingsScreen
+import com.basic.template.compose.screen.AboutScreen
+import com.basic.template.compose.screen.SettingsScreen
+import com.basic.template.compose.screen.UserDetailScreen
+import com.basic.template.compose.screen.UserListScreen
 import com.basic.template.compose.userdetail.ui.UserDetailScreen
 import com.basic.template.compose.userdetail.ui.UserDetailViewModel
-import com.basic.template.compose.userlist.ui.UserListScreen
 import com.basic.template.compose.userlist.ui.UserListViewModel
+import com.basic.template.compose.userlist.ui.UserListWithAppBar
 
-fun NavGraphBuilder.userNavGraph(navController: NavController) {
-    navigation(startDestination = HomeScreen.route, route = NavRoutes.UserRoute.name) {
-        composable(HomeScreen.route){
+@OptIn(ExperimentalMaterial3Api::class)
+fun NavGraphBuilder.userNavGraph(navController: NavController, drawerState: DrawerState) {
+    navigation(startDestination = UserListScreen.route, route = NavRoutes.UserRoute.name) {
+        composable(UserListScreen.route) {
             val userListViewModel: UserListViewModel = hiltViewModel()
-            UserListScreen(navController, userListViewModel)
+            UserListWithAppBar(
+                R.string.user_list,
+                navController,
+                userListViewModel,
+                drawerState
+            )
         }
 
         /*
@@ -26,12 +39,20 @@ fun NavGraphBuilder.userNavGraph(navController: NavController) {
          */
         val ARGUMENT_KEY = "id"
         composable(
-            DetailScreen.route.plus("/{$ARGUMENT_KEY}"),
+            UserDetailScreen.route.plus("/{$ARGUMENT_KEY}"),
             arguments = listOf(navArgument(ARGUMENT_KEY) { type = NavType.IntType })
         ) {
             val userDetailViewModel: UserDetailViewModel = hiltViewModel()
             val id = it.arguments?.getInt(ARGUMENT_KEY)
-            UserDetailScreen(id, userDetailViewModel)
+            UserDetailScreen(R.string.user_detail, id, userDetailViewModel)
+        }
+
+        composable(AboutScreen.route) {
+            AboutScreen(R.string.about, drawerState = drawerState)
+        }
+
+        composable(SettingsScreen.route) {
+            SettingsScreen(R.string.settings, drawerState = drawerState)
         }
     }
 }

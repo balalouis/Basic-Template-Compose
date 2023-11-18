@@ -4,27 +4,37 @@ interface ScreenDestination {
     val route: String
 }
 
-object SplashScreen : ScreenDestination{
+object SplashScreen : ScreenDestination {
     override val route: String
         get() = "Splash"
 }
 
-object LoginScreen : ScreenDestination{
+object LoginScreen : ScreenDestination {
     override val route: String
         get() = "Login"
 }
 
-object RegisterScreen : ScreenDestination{
+object RegisterScreen : ScreenDestination {
     override val route: String
         get() = "Register"
 }
 
-object HomeScreen : ScreenDestination{
+object UserListScreen : ScreenDestination {
     override val route: String
-        get() = "Home"
+        get() = "UserList"
 }
 
-object DetailScreen : ScreenDestination{
+object UserDetailScreen : ScreenDestination {
     override val route: String
         get() = "Detail"
+}
+
+object AboutScreen : ScreenDestination {
+    override val route: String
+        get() = "About"
+}
+
+object SettingsScreen : ScreenDestination {
+    override val route: String
+        get() = "Settings"
 }

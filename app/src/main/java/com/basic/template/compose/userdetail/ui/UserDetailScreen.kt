@@ -30,7 +30,7 @@ import model.RoomUserDetailUIState
 private const val TAG = "UserDetailScreen"
 
 @Composable
-fun UserDetailScreen(id: Int?, userDetailViewModel: UserDetailViewModel) {
+fun UserDetailScreen(title: Int, id: Int?, userDetailViewModel: UserDetailViewModel) {
     DetailScreenText(id, userDetailViewModel)
 }
 

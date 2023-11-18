@@ -13,7 +13,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -33,7 +32,6 @@ import com.basic.template.compose.R
 import com.basic.template.compose.UserSession
 import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
-import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginUiState

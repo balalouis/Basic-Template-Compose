@@ -20,7 +20,7 @@ fun SplashScreen(navController: NavController,modifier: Modifier = Modifier){
         if (UserSession.token?.isNotEmpty() == true) {
             LaunchedEffect(Unit) {
                 delay(4000)
-                navController.navigate(HomeScreen.route) {
+                navController.navigate(UserListScreen.route) {
                     popUpTo(SplashScreen.route) {
                         inclusive = true
                     }

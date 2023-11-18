@@ -33,7 +33,6 @@ import androidx.navigation.NavController
 import com.basic.template.compose.R
 import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
-import com.basic.template.compose.screen.HomeScreen
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationUiState
