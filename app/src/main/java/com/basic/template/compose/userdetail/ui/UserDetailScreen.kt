@@ -28,9 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
-import com.basic.template.compose.userlist.ui.UserListScreen
-import com.basic.template.compose.userlist.ui.UserListViewModel
-import com.basic.template.network.model.LoginUiState
 import model.RoomUser
 import model.RoomUserDetailUIState
 
@@ -43,9 +40,15 @@ private const val TAG = "UserDetailScreen"
 fun UserDetailWithAppBar(
     title: Int,
     id: Int?,
-    userDetailViewModel: UserDetailViewModel, drawerState: DrawerState
+    userDetailViewModel: UserDetailViewModel, drawerState: DrawerState,
+    navController: NavController
 ) {
-    Scaffold(topBar = { MyAppBar(drawerState = drawerState, title = title) }) {
+    Scaffold(topBar = {
+        MyAppBar(
+            title = title,
+            navControllerObj = navController
+        )
+    }) {
         DetailScreenText(id, userDetailViewModel, it)
     }
 }

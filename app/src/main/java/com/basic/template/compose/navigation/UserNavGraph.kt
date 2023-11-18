@@ -48,7 +48,8 @@ fun NavGraphBuilder.userNavGraph(navController: NavController, drawerState: Draw
                 title = R.string.user_detail,
                 id = id,
                 userDetailViewModel = userDetailViewModel,
-                drawerState = drawerState
+                drawerState = drawerState,
+                navController = navController
             )
         }
 

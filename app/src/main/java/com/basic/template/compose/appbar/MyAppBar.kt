@@ -11,14 +11,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.basic.template.compose.R
+import com.basic.template.compose.components.BackButton
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +28,8 @@ fun MyAppBar(
     navigationIcon: (@Composable () -> Unit)? = null,
     @StringRes title: Int? = null,
     appBarActions: List<AppBarActionData>? = null,
-    drawerState: DrawerState
+    drawerState: DrawerState? = null,
+    navControllerObj: NavController? = null
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -51,9 +53,11 @@ fun MyAppBar(
             if (drawerState != null && navigationIcon == null) {
                 DrawerIcon(drawerState = drawerState)
             } else {
-                navigationIcon?.invoke()
+                BackButton {
+                    navControllerObj?.popBackStack()
+                }
             }
-        }
+        },
     )
 }
 
