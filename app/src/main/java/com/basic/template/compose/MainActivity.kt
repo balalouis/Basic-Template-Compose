@@ -55,21 +55,25 @@ fun MainCompose(
                     ) { onUserPickedOption ->
                         when (onUserPickedOption) {
                             UserListScreen.route -> {
-                                navController.navigate(UserListScreen.route)
+                                navController.navigate(UserListScreen.route) {
+                                    popUpTo(NavRoutes.UserRoute.name) {
+                                        inclusive = false
+                                    }
+                                }
                             }
 
                             AboutScreen.route -> {
                                 navController.navigate(AboutScreen.route) {
-                                    popUpTo(UserListScreen.route) {
-                                        inclusive = false
+                                    popUpTo(NavRoutes.UserRoute.name) {
+                                        inclusive = true
                                     }
                                 }
                             }
 
                             SettingsScreen.route -> {
                                 navController.navigate(SettingsScreen.route) {
-                                    popUpTo(UserListScreen.route) {
-                                        inclusive = false
+                                    popUpTo(NavRoutes.UserRoute.name) {
+                                        inclusive = true
                                     }
                                 }
                             }
