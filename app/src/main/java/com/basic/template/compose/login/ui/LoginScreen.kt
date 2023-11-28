@@ -34,7 +34,7 @@ import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.network.model.LoginRequestModel
-import com.basic.template.network.model.LoginUiState
+import com.basic.template.network.model.NetworkResponse
 import kotlinx.coroutines.launch
 
 private const val TAG = "LoginScreen"
@@ -132,8 +132,8 @@ fun LoginButton(
     val scope = rememberCoroutineScope()
     val uiState by loginViewModel.uiState.collectAsState()
     when (uiState) {
-        is LoginUiState.Success -> {
-            val token = (uiState as LoginUiState.Success).loginResponseModel?.token
+        is NetworkResponse.Success -> {
+            val token = (uiState as NetworkResponse.Success).data?.token
             if (token?.isNotEmpty() == true) {
                 UserSession.token = token
                 LaunchedEffect(Unit) {
@@ -146,14 +146,14 @@ fun LoginButton(
             }
         }
 
-        is LoginUiState.Error -> {
+        is NetworkResponse.Failure -> {
             Log.d(
                 TAG,
-                "" + ((uiState as LoginUiState.Error).exception.localizedMessage?.toString())
+                "" + ((uiState as NetworkResponse.Failure).errorMessage)
             )
         }
 
-        is LoginUiState.Loading -> {
+        is NetworkResponse.Loading -> {
             ProgressBar()
         }
 

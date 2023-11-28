@@ -6,6 +6,7 @@ import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationResponseModel
 import com.basic.template.network.model.UserDetailServerRootData
 import com.basic.template.network.model.UserListRoot
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,7 +15,7 @@ import retrofit2.http.Path
 interface ApiWebService {
 
     @POST("api/login")
-    suspend fun loginApiCall(@Body loginRequestModel: LoginRequestModel): LoginResponseModel
+    suspend fun loginApiCall(@Body loginRequestModel: LoginRequestModel): Response<LoginResponseModel>
 
     @POST("api/register")
     suspend fun registrationApiCall(@Body registrationRequestModel: RegistrationRequestModel): RegistrationResponseModel
