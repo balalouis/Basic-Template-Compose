@@ -36,8 +36,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
 import com.basic.template.compose.screen.UserDetailScreen
+import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.User
-import com.basic.template.network.model.UserUIState
 
 private const val TAG = "UserListScreen"
 
@@ -66,25 +66,25 @@ fun UserListScreen(
     LaunchedEffect(Unit) { userListViewModel.fetchUserListApiViaViewModel() }
     val uiState by userListViewModel.uiState.collectAsState()
     when (uiState) {
-        is UserUIState.Success -> {
-            val listItem = (uiState as UserUIState.Success).userList
-            if (listItem != null) {
+        is NetworkResponse.Success -> {
+            val listItem = (uiState as NetworkResponse.Success).data
+            if (listItem?.userModelList != null) {
                 UserListItem(
-                    userList = listItem,
+                    userList = listItem.userModelList!!,
                     navController = onNavController,
                     paddingValues = paddingValues
                 )
             }
         }
 
-        is UserUIState.Failure -> {
+        is NetworkResponse.Failure -> {
             Log.d(
                 TAG,
-                "" + ((uiState as UserUIState.Failure).exception.localizedMessage?.toString())
+                "" + ((uiState as NetworkResponse.Failure).errorMessage)
             )
         }
 
-        is UserUIState.Loading -> {
+        is NetworkResponse.Loading -> {
             ProgressBar()
         }
     }

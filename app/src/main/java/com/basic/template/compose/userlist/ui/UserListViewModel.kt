@@ -3,7 +3,8 @@ package com.basic.template.compose.userlist.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basic.template.compose.userlist.domain.usecases.UserListUseCases
-import com.basic.template.network.model.UserUIState
+import com.basic.template.network.model.NetworkResponse
+import com.basic.template.network.model.UserListRoot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,20 +14,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(var userListUseCases: UserListUseCases) : ViewModel() {
-    private val _uiState = MutableStateFlow<UserUIState>(UserUIState.Success(emptyList()))
-    val uiState: StateFlow<UserUIState> = _uiState
+    private val _uiState =
+        MutableStateFlow<NetworkResponse<UserListRoot>>(NetworkResponse.Success(null))
+    val uiState: StateFlow<NetworkResponse<UserListRoot>> = _uiState
 
     fun fetchUserListApiViaViewModel() {
         viewModelScope.launch {
-            _uiState.value = UserUIState.Loading
+            _uiState.value = NetworkResponse.Loading
             userListUseCases.fetchUserList()
                 .catch {
-                    _uiState.value = UserUIState.Failure(it)
+                    _uiState.value =
+                        it.localizedMessage?.let { it1 -> NetworkResponse.Failure(it1) }!!
                 }
                 .collect {
-                    if(it.userModelList?.size!! >0) {
-                        _uiState.value = UserUIState.Success(it.userModelList)
-                    }
+                    _uiState.value = it
                 }
         }
     }

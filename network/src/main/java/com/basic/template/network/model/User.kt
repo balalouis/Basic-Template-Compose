@@ -20,7 +20,6 @@ data class User(
     var userAvatar: String = ""
 )
 
-
 data class UserListRoot(
     @SerializedName("page")
     var page: Int = 2,
@@ -41,10 +40,4 @@ data class UserListRoot(
 data class SingleUser(@SerializedName("data") var user: User?) {
     companion object
 
-}
-
-sealed class UserUIState {
-    object Loading: UserUIState()
-    data class Success(var userList: List<User>?) : UserUIState()
-    data class Failure(var exception: Throwable) : UserUIState()
 }
