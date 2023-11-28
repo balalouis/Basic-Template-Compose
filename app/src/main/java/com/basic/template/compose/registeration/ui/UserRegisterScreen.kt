@@ -34,8 +34,9 @@ import com.basic.template.compose.R
 import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.screen.LoginScreen
+import com.basic.template.compose.userlist.ui.ProgressBar
+import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
-import com.basic.template.network.model.RegistrationUiState
 import kotlinx.coroutines.launch
 
 
@@ -144,8 +145,8 @@ fun RegisterButton(
     val uiState by registrationViewModel.uiState.collectAsState()
 
     when (uiState) {
-        is RegistrationUiState.Success -> {
-            if ((uiState as RegistrationUiState.Success).registrationResponseModel?.token?.isNotEmpty() == true) {
+        is NetworkResponse.Success -> {
+            if ((uiState as NetworkResponse.Success).data?.token?.isNotEmpty() == true) {
                 LaunchedEffect(Unit) {
                     navControllerObj.navigate(NavRoutes.UserRoute.name) {
                         popUpTo(LoginScreen.route) {
@@ -156,12 +157,18 @@ fun RegisterButton(
             }
         }
 
-        is RegistrationUiState.Error -> {
+        is NetworkResponse.Failure -> {
             Log.d(
                 TAG,
-                "" + ((uiState as RegistrationUiState.Error).exception.localizedMessage?.toString())
+                "" + ((uiState as NetworkResponse.Failure).errorMessage)
             )
         }
+
+        is NetworkResponse.Loading -> {
+            ProgressBar()
+        }
+
+        else -> {}
     }
 
     Button(

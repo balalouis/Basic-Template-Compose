@@ -32,5 +32,4 @@ class LoginViewModel @Inject constructor(private var loginUseCases: LoginUseCase
                 }
         }
     }
-
 }

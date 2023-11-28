@@ -18,7 +18,7 @@ interface ApiWebService {
     suspend fun loginApiCall(@Body loginRequestModel: LoginRequestModel): Response<LoginResponseModel>
 
     @POST("api/register")
-    suspend fun registrationApiCall(@Body registrationRequestModel: RegistrationRequestModel): RegistrationResponseModel
+    suspend fun registrationApiCall(@Body registrationRequestModel: RegistrationRequestModel): Response<RegistrationResponseModel>
 
     @GET("api/users?page=2")
     suspend fun fetchUserList(): UserListRoot
