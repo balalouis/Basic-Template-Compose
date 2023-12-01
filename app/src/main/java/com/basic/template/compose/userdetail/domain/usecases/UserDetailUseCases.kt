@@ -6,10 +6,11 @@ import model.RoomUser
 import javax.inject.Inject
 
 
-class UserDetailUseCases @Inject constructor(var userDetailRepo: UserDetailRepo) {
-    suspend fun fetchUserAndInsertIntoDB(userId: String){
+class UserDetailUseCases @Inject constructor(private var userDetailRepo: UserDetailRepo) {
+    fun fetchUserAndInsertIntoDB(userId: String) =
         userDetailRepo.fetchUserAndInsertIntoDB(userId)
-    }
 
-    fun fetchUserDetailFromDB(userId: Int): Flow<RoomUser?> = userDetailRepo.fetchUserDetailFromDB(userId)
+
+    fun fetchUserDetailFromDB(userId: Int): Flow<RoomUser?> =
+        userDetailRepo.fetchUserDetailFromDB(userId)
 }

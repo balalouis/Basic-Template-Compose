@@ -13,17 +13,21 @@ import model.RoomUserDetailUIState
 import javax.inject.Inject
 
 @HiltViewModel
-class UserDetailViewModel @Inject constructor(var userDetailUseCases: UserDetailUseCases) : ViewModel() {
-    private val _uiState = MutableStateFlow<RoomUserDetailUIState>(RoomUserDetailUIState.Success(user = RoomUser()))
+class UserDetailViewModel @Inject constructor(private var userDetailUseCases: UserDetailUseCases) :
+    ViewModel() {
+    private val _uiState =
+        MutableStateFlow<RoomUserDetailUIState>(RoomUserDetailUIState.Success(user = RoomUser()))
     val uiState: StateFlow<RoomUserDetailUIState> = _uiState
 
-    fun fetchUserAndInsertIntoDB(userId:String) {
+    fun fetchUserAndInsertIntoDB(userId: String) {
         viewModelScope.launch {
-            userDetailUseCases.fetchUserAndInsertIntoDB(userId)
+            userDetailUseCases.fetchUserAndInsertIntoDB(userId).catch {
+                _uiState.value = RoomUserDetailUIState.Failure(it)
+            }
         }
     }
 
-    fun fetchRoomUserFromDBViaViewModel(userId:Int) {
+    fun fetchRoomUserFromDBViaViewModel(userId: Int) {
         viewModelScope.launch {
             userDetailUseCases.fetchUserDetailFromDB(userId)
                 .catch {

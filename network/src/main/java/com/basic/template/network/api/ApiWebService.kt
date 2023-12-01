@@ -24,7 +24,7 @@ interface ApiWebService {
     suspend fun fetchUserList(): Response<UserListRoot>
 
     @GET("api/users/{id}")
-    suspend fun fetchUserDetail(@Path("id") id: String): UserDetailServerRootData
+    suspend fun fetchUserDetail(@Path("id") id: String): Response<UserDetailServerRootData>
 
     companion object {
         const val BASE_URL = "https://reqres.in/"
