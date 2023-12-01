@@ -1,5 +1,6 @@
 package com.basic.template.compose.userdetail.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basic.template.compose.userdetail.domain.usecases.UserDetailUseCases
@@ -23,6 +24,8 @@ class UserDetailViewModel @Inject constructor(private var userDetailUseCases: Us
         viewModelScope.launch {
             userDetailUseCases.fetchUserAndInsertIntoDB(userId).catch {
                 _uiState.value = RoomUserDetailUIState.Failure(it)
+            }.collect {
+                Log.d("---->", "Successfully fetched the data")
             }
         }
     }
