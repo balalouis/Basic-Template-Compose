@@ -7,7 +7,7 @@ import com.basic.template.network.model.NetworkResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LoginUseCases @Inject constructor(var loginRepo: LoginRepo) {
+class LoginUseCases @Inject constructor(private var loginRepo: LoginRepo) {
     fun login(loginRequestModel: LoginRequestModel): Flow<NetworkResponse<LoginResponseModel>> =
         loginRepo.login(loginRequestModel)
 }

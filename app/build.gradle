@@ -52,6 +52,7 @@ dependencies {
     implementation project(path: ':network')
     implementation project(path: ':room')
     def nav_version = "2.5.3"
+    def coroutines_test_version = '1.6.1'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
@@ -91,5 +92,8 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation('androidx.room:room-ktx:2.5.2')
+
+    // coroutines for test case
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
 
 }

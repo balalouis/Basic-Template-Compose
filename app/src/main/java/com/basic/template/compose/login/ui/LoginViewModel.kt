@@ -20,12 +20,16 @@ class LoginViewModel @Inject constructor(private var loginUseCases: LoginUseCase
         MutableStateFlow<NetworkResponse<LoginResponseModel>>(NetworkResponse.Success(data = null))
     val uiState: StateFlow<NetworkResponse<LoginResponseModel>> = _uiState
 
-    fun loginApiViewModel(loginRequestModel: LoginRequestModel) {
+    private val defaultLoginRequestModel =
+        LoginRequestModel(email = "eve.holt@reqres.in", password = "cityslicka")
+
+    fun loginApiViewModel(loginRequestModel: LoginRequestModel = defaultLoginRequestModel) {
         viewModelScope.launch {
             _uiState.value = NetworkResponse.Loading
             loginUseCases.login(loginRequestModel)
                 .catch {
-                    _uiState.value = it.localizedMessage?.let { it1 -> NetworkResponse.Failure(it1) }!!
+                    _uiState.value =
+                        it.localizedMessage?.let { it1 -> NetworkResponse.Failure(it1) }!!
                 }
                 .collect {
                     _uiState.value = it
