@@ -3,6 +3,7 @@ package com.basic.template.compose.registeration.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.basic.template.compose.registeration.domain.usecases.RegistrationUseCases
+import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationResponseModel
@@ -23,8 +24,10 @@ class RegistrationViewModel @Inject constructor(private var registrationUseCases
         )
     )
     val uiState: StateFlow<NetworkResponse<RegistrationResponseModel>> = _uiState
+    private val defaultRegistrationRequestModel =
+        RegistrationRequestModel(email = "eve.holt@reqres.in", password = "cityslicka")
 
-    fun registrationViaApiViewModel(registrationRequestModel: RegistrationRequestModel) {
+    fun registrationViaApiViewModel(registrationRequestModel: RegistrationRequestModel = defaultRegistrationRequestModel) {
         viewModelScope.launch {
             _uiState.value = NetworkResponse.Loading
             registrationUseCases.registration(registrationRequestModel)
