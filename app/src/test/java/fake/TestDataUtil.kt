@@ -3,6 +3,10 @@ package fake
 import com.basic.template.network.model.LoginResponseModel
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationResponseModel
+import com.basic.template.network.model.UserListRoot
+import com.google.gson.GsonBuilder
+import java.io.IOException
+
 
 object TestDataUtil {
     fun getLoginSuccessResponse(): NetworkResponse<LoginResponseModel> =
@@ -14,4 +18,15 @@ object TestDataUtil {
         )
 
     fun getFailureResponse() = NetworkResponse.Failure(errorMessage = "in valid password")
+
+    @Throws(IOException::class)
+
+    fun getUserListRootSuccessResponse(value: String): NetworkResponse<UserListRoot> {
+        val gson = GsonBuilder().create()
+        val success = gson.fromJson(
+            value,
+            UserListRoot::class.java
+        )
+        return NetworkResponse.Success(success)
+    }
 }
