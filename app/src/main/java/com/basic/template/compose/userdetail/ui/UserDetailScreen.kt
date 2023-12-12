@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
+import com.basic.template.network.model.NetworkResponse
 import model.RoomUser
-import model.RoomUserDetailUIState
 
 
 private const val TAG = "UserDetailScreen"
@@ -68,18 +68,20 @@ fun DetailScreenText(
     val uiState by userDetailViewModel.uiState.collectAsState()
 
     when (uiState) {
-        is RoomUserDetailUIState.Success -> {
-            val roomUserDetailUIState = uiState as RoomUserDetailUIState.Success
-            if (roomUserDetailUIState.user != null) {
-                UpdateUserDetail(roomUser = roomUserDetailUIState.user, paddingValues)
+        is NetworkResponse.Success -> {
+            val roomUserRoot = uiState as NetworkResponse.Success
+            if (roomUserRoot.data != null) {
+                UpdateUserDetail(roomUser = roomUserRoot.data, paddingValues)
             }
         }
-
-        is RoomUserDetailUIState.Failure -> {
+        is NetworkResponse.Failure -> {
             Log.d(
                 TAG,
-                "" + ((uiState as RoomUserDetailUIState.Failure).exception.localizedMessage?.toString())
+                "" + ((uiState as NetworkResponse.Failure).errorMessage)
             )
+        }
+        else -> {
+            Log.d("-----> ","No response data")
         }
     }
 }

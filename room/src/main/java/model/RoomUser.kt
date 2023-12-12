@@ -40,8 +40,3 @@ sealed class UserUIState {
     data class Success(var userList: List<RoomUser>?) : UserUIState()
     data class Failure(var exception: Throwable) : UserUIState()
 }
-
-sealed class RoomUserDetailUIState {
-    data class Success(var user: RoomUser?) : RoomUserDetailUIState()
-    data class Failure(var exception: Throwable) : RoomUserDetailUIState()
-}
