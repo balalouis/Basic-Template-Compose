@@ -7,13 +7,12 @@ import com.basic.template.network.model.RegistrationResponseModel
 import com.basic.template.network.model.UserDetailServerRootData
 import com.basic.template.network.model.UserListRoot
 import com.google.gson.GsonBuilder
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import model.RoomUser
 import java.io.IOException
 
 
 object TestDataUtil {
+    val errorMessage: String = "In valid password"
     fun getLoginSuccessResponse(): NetworkResponse<LoginResponseModel> =
         NetworkResponse.Success(LoginResponseModel(token = "assccfgvvhnjmkn"))
 
@@ -22,7 +21,7 @@ object TestDataUtil {
             RegistrationResponseModel(token = "assccfgvvhnjmkn")
         )
 
-    fun getFailureResponse() = NetworkResponse.Failure(errorMessage = "in valid password")
+    fun getFailureResponse() = NetworkResponse.Failure(errorMessage)
 
     @Throws(IOException::class)
 
@@ -35,23 +34,21 @@ object TestDataUtil {
         return NetworkResponse.Success(success)
     }
 
-    fun getUserDetailSuccessResponseFromNetwork(value: String): NetworkResponse<RoomUser> {
+    fun getUserDetailSuccessResponseFromNetwork(value: String): NetworkResponse<UserDetailServerRootData> {
         val gson = GsonBuilder().create()
         val userDetail = gson.fromJson(
             value,
             UserDetailServerRootData::class.java
         )
-        val roomUser = UserMapper.convertUserToRoomUser(userDetail.user)
-        return NetworkResponse.Success(roomUser)
+        return NetworkResponse.Success(userDetail)
     }
 
-    fun getUserDetailSuccessResponseFromDB(value: String): NetworkResponse<RoomUser> {
+    fun getUserDetailSuccessResponseFromDB(value: String): RoomUser {
         val gson = GsonBuilder().create()
         val userDetail = gson.fromJson(
             value,
             UserDetailServerRootData::class.java
         )
-        val roomUser = UserMapper.convertUserToRoomUser(userDetail.user)
-        return NetworkResponse.Success(roomUser)
+        return UserMapper.convertUserToRoomUser(userDetail.user)
     }
 }

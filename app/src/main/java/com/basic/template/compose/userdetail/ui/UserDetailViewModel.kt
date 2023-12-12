@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.basic.template.compose.userdetail.domain.usecases.UserDetailUseCases
 import com.basic.template.network.model.NetworkResponse
+import com.basic.template.network.model.UserDetailServerRootData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,12 +22,16 @@ class UserDetailViewModel @Inject constructor(private var userDetailUseCases: Us
         MutableStateFlow<NetworkResponse<RoomUser>>(NetworkResponse.Success(data = RoomUser()))
     val uiState: StateFlow<NetworkResponse<RoomUser>> = _uiState
 
+    private val _uiStateNetwork =
+        MutableStateFlow<NetworkResponse<UserDetailServerRootData>>(NetworkResponse.Success(data = UserDetailServerRootData()))
+    val uiStateNetwork: StateFlow<NetworkResponse<UserDetailServerRootData>> = _uiStateNetwork
+
     fun fetchUserAndInsertIntoDB(userId: String) {
         viewModelScope.launch {
             userDetailUseCases.fetchUserAndInsertIntoDB(userId).catch {
-                _uiState.value = NetworkResponse.Failure(it.localizedMessage)
+                _uiStateNetwork.value = NetworkResponse.Failure(it.localizedMessage)
             }.collect {
-                Log.d("---->", "Successfully fetched the data")
+                _uiStateNetwork.value = it
             }
         }
     }
