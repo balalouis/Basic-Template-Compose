@@ -51,6 +51,23 @@ class UserDetailViewModelTest {
     }
 
     @Test
+    fun testUserDetailNetworkFailure() {
+        val dataSource = FakeUserDetailDataSource(isApiSuccess = false, fileName = "")
+        val repo = UserDetailRepoImpl(dataSource)
+        val useCases = UserDetailUseCases(repo)
+        viewModel = UserDetailViewModel(useCases)
+
+        // Act
+        val expectedData = TestDataUtil.errorMessage
+
+        viewModel.fetchUserAndInsertIntoDB("2")
+        coroutineTestRule.testDispatcher.scheduler.runCurrent()
+
+        val actualData = viewModel.uiStateNetwork.value as NetworkResponse.Failure
+        assert(expectedData == actualData.errorMessage)
+    }
+
+    @Test
     fun testUserDetailDataBaseSuccess() {
         val successFilename = "{\n" +
                 "    \"data\": {\n" +
