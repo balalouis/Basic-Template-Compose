@@ -47,7 +47,7 @@ fun LoginScreen(
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>,
     loginViewModel: LoginViewModel,
-    title: String,
+    title: String = "",
     showBackButton: Boolean = true
 ) {
     Scaffold(topBar = {

@@ -27,4 +27,5 @@
     <string name="drawer_settings_description">Settings navigation button</string>
     <string name="drawer_info_description">About navigation button</string>
     <string name="user_list">User List</string>
+    <string name="age">Age</string>
 </resources>
