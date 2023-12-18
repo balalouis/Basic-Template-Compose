@@ -91,9 +91,9 @@ fun MainCompose(
 @Composable
 fun MyAppNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController,
+    navController: NavHostController = rememberNavController(),
     startDestination: String = NavRoutes.LoginRoute.name,
-    drawerState: DrawerState
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 ) {
     NavHost(
         navController = navController,

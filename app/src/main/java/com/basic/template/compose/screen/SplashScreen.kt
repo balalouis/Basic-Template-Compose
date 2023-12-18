@@ -7,14 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.basic.template.compose.R
 import com.basic.template.compose.UserSession
+import com.basic.template.compose.util.TestUITag
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController,modifier: Modifier = Modifier){
+fun SplashScreen(navController: NavController, modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
         if (UserSession.token?.isNotEmpty() == true) {
@@ -39,7 +41,7 @@ fun SplashScreen(navController: NavController,modifier: Modifier = Modifier){
 
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = null
+            contentDescription = null, modifier = Modifier.testTag(TestUITag.SPLASH_IMAGE)
         )
     }
 }

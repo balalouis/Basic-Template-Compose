@@ -30,12 +30,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
 import com.basic.template.compose.screen.UserDetailScreen
+import com.basic.template.compose.util.TestUITag
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.User
 
@@ -96,6 +98,7 @@ fun UserListItem(userList: List<User>, navController: NavController, paddingValu
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .testTag(TestUITag.USER_LIST_TITLE)
             .padding(paddingValues),
         contentAlignment = Alignment.Center
     ) {
@@ -159,7 +162,9 @@ fun UserMessageRow(user: User, onClick: () -> Unit) {
 @Composable
 fun ProgressBar() {
     Box(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(TestUITag.PROGRESS_BAR),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()

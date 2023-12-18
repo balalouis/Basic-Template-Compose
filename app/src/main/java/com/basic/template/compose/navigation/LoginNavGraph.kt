@@ -26,10 +26,10 @@ fun NavGraphBuilder.loginNavGraph(navController: NavController) {
         }
         composable(LoginScreen.route) {
             val userName = remember {
-                mutableStateOf(TextFieldValue("eve.holt@reqres.in"))
+                mutableStateOf(TextFieldValue(""))
             }
             val password = remember {
-                mutableStateOf(TextFieldValue("cityslicka"))
+                mutableStateOf(TextFieldValue(""))
             }
             val loginViewModelObj: LoginViewModel = hiltViewModel()
 

@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -28,11 +29,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.basic.template.compose.R
 import com.basic.template.compose.UserSession
 import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.userlist.ui.ProgressBar
+import com.basic.template.compose.util.TestUITag
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.NetworkResponse
 import kotlinx.coroutines.launch
@@ -101,28 +104,40 @@ fun LoginTextFields(
         TextField(
             value = userName.value,
             onValueChange = { userName.value = it },
-            label = { Text(text = stringResource(id = R.string.email)) },
+            label = {
+                Text(
+                    text = stringResource(id = R.string.email),
+                    modifier = Modifier.testTag(TestUITag.EMAIL_TAG)
+                )
+            },
             singleLine = true,
             modifier = Modifier
                 .padding(all = dimensionResource(id = R.dimen.dp_8))
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag(TestUITag.EMAIL_FIELD_TAG),
         )
 
         TextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = { Text(text = stringResource(id = R.string.password)) },
+            label = {
+                Text(
+                    text = stringResource(id = R.string.password),
+                    modifier = Modifier.testTag(TestUITag.PASSWORD_TAG)
+                )
+            },
             singleLine = true,
             modifier = Modifier
                 .padding(all = dimensionResource(id = R.dimen.dp_8))
                 .fillMaxWidth()
+                .testTag(TestUITag.PASSWORD_FILED_TAG)
         )
     }
 }
 
 @Composable
 fun LoginButton(
-    navController: NavController,
+    navController: NavController = rememberNavController(),
     loginViewModel: LoginViewModel,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>
@@ -171,6 +186,7 @@ fun LoginButton(
                     id = R.dimen.dp_8
                 ), end = dimensionResource(id = R.dimen.dp_8)
             )
+            .testTag(TestUITag.LOGIN_BUTTON_TAG)
     ) {
         Text(text = stringResource(id = R.string.login))
     }
