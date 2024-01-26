@@ -22,9 +22,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@TestInstallIn(
+    components = [SingletonComponent::class, ViewModelComponent::class],
+    replaces = [AppModule::class]
+)
 class TestAppModule {
 
     @Provides

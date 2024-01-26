@@ -104,6 +104,10 @@ dependencies {
     kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.50'
 
     // Leak canary
-    debugImplementation ("com.squareup.leakcanary:leakcanary-android:2.12")
-    androidTestImplementation ("com.squareup.leakcanary:leakcanary-android-instrumentation:2.12")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
+    androidTestImplementation("com.squareup.leakcanary:leakcanary-android-instrumentation:2.12")
+
+    def cucumber_javaVersion = '7.14.0'
+    androidTestImplementation "io.cucumber:cucumber-android:$cucumber_javaVersion"
+    androidTestImplementation "io.cucumber:cucumber-android-hilt:$cucumber_javaVersion"
 }
