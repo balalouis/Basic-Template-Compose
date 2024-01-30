@@ -51,6 +51,8 @@ android {
 dependencies {
     implementation project(path: ':network')
     implementation project(path: ':room')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
     def nav_version = "2.7.6"
     def coroutines_test_version = '1.6.1'
 
