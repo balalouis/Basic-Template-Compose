@@ -21,7 +21,7 @@ class LoginViewModel @Inject constructor(private var loginUseCases: LoginUseCase
     val uiState: StateFlow<NetworkResponse<LoginResponseModel>> = _uiState
 
     private val defaultLoginRequestModel =
-        LoginRequestModel(email = "eve.holt@reqres.in", password = "cityslicka")
+        LoginRequestModel(email = "", password = "")
 
     fun loginApiViewModel(loginRequestModel: LoginRequestModel = defaultLoginRequestModel) {
         viewModelScope.launch {

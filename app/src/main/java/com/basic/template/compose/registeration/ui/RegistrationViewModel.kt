@@ -25,7 +25,7 @@ class RegistrationViewModel @Inject constructor(private var registrationUseCases
     )
     val uiState: StateFlow<NetworkResponse<RegistrationResponseModel>> = _uiState
     private val defaultRegistrationRequestModel =
-        RegistrationRequestModel(email = "eve.holt@reqres.in", password = "cityslicka")
+        RegistrationRequestModel(email = "", password = "")
 
     fun registrationViaApiViewModel(registrationRequestModel: RegistrationRequestModel = defaultRegistrationRequestModel) {
         viewModelScope.launch {

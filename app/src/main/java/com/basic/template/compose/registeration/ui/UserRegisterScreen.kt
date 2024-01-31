@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -35,6 +36,7 @@ import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.userlist.ui.ProgressBar
+import com.basic.template.compose.util.TestUITag
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
 import kotlinx.coroutines.launch
@@ -104,7 +106,7 @@ fun RegisterTextFields(
             label = { Text(text = stringResource(id = R.string.email)) },
             singleLine = true,
             modifier = Modifier
-                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.EMAIL_FIELD_TAG)
                 .fillMaxWidth(),
         )
 
@@ -114,7 +116,7 @@ fun RegisterTextFields(
             label = { Text(text = stringResource(id = R.string.password)) },
             singleLine = true,
             modifier = Modifier
-                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.PASSWORD_FILED_TAG)
                 .fillMaxWidth()
         )
 
@@ -125,7 +127,7 @@ fun RegisterTextFields(
             label = { Text(text = stringResource(id = R.string.confirm_password)) },
             singleLine = true,
             modifier = Modifier
-                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.CONFIRM_PASSWORD_FILED_TAG)
                 .fillMaxWidth()
         )
     }
@@ -182,7 +184,7 @@ fun RegisterButton(
                 start = dimensionResource(
                     id = R.dimen.dp_8
                 ), end = dimensionResource(id = R.dimen.dp_8)
-            )
+            ).testTag(TestUITag.REGISTER_BUTTON_TAG)
     ) {
         Text(text = stringResource(id = R.string.register))
     }

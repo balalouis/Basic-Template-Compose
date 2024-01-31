@@ -202,7 +202,7 @@ fun SignUp(onClickToRegister: (Int) -> Unit) {
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
-            )
+            ).testTag(TestUITag.DO_NOT_HAVE_ACCOUNT_TAG)
         )
     }
 }
