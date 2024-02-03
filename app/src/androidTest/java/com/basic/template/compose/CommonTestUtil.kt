@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -27,6 +28,10 @@ object CommonTestUtil {
 
     fun performButton(tag: String) {
         composeTestRule.onNodeWithTag(tag).performClick()
+    }
+
+    fun performClickOnListItem(tag: String){
+        composeTestRule.onNodeWithText(tag).performClick()
     }
 
     @OptIn(ExperimentalTestApi::class)

@@ -23,11 +23,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
+import com.basic.template.compose.util.TestUITag.USER_DETAIL_TAG
+import com.basic.template.compose.util.TestUITag.USER_EMAIL_TAG
 import com.basic.template.network.model.NetworkResponse
 import model.RoomUser
 
@@ -90,7 +93,7 @@ fun DetailScreenText(
 fun UpdateUserDetail(roomUser: RoomUser?, paddingValues: PaddingValues) {
     Column(
         modifier = Modifier
-            .padding(paddingValues)
+            .padding(paddingValues).testTag(USER_DETAIL_TAG)
             .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
@@ -118,7 +121,8 @@ fun UpdateUserDetail(roomUser: RoomUser?, paddingValues: PaddingValues) {
         Text(
             text = roomUser.email.toString(),
             color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.testTag(USER_EMAIL_TAG)
         )
     }
 }
