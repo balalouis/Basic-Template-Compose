@@ -89,6 +89,8 @@ fun UserListScreen(
         is NetworkResponse.Loading -> {
             ProgressBar()
         }
+
+        else -> {}
     }
 }
 
