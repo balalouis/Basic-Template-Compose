@@ -61,6 +61,8 @@ class UserScreenTest {
     @After
     fun stop() {
         LeakAssertions.assertNoLeaks()
+        mockWebServer.shutdown()
+        IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
     }
 
     @Test
