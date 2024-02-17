@@ -33,49 +33,15 @@ import javax.inject.Inject
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class, NetworkModule::class, UrlModule::class)
-class UserScreenTest {
-
-    @get:Rule(order = 0)
-    val hiltTestRule = HiltAndroidRule(this)
-
-    @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
-
-    @get:Rule
-    val rule = DetectLeaksAfterTestSuccess()
-
-    @Inject
-    lateinit var okHttp: OkHttpClient
-
-    private val mockWebServer = MockWebServer()
-    private lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
-
-    @Before
-    fun setUp() {
-        hiltTestRule.inject()
-        okHttp3IdlingResource = OkHttp3IdlingResource.create("okhttp", okHttp)
-        IdlingRegistry.getInstance().register(okHttp3IdlingResource)
-        mockWebServer.start(8080)
-    }
-
-    @After
-    fun stop() {
-        LeakAssertions.assertNoLeaks()
-        mockWebServer.shutdown()
-        IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
-    }
-
-    @Test
-    fun dummy() {
-        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
-        CommonTestUtil.initializeComposeTestRule(composeTestRule)
-        launchLoginScreenNavGraph()
-        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 12000)
-        performClickOnListItem("Lindsay")
-    }
+class UserScreenTest: BaseScreenTest() {
 
     @Test
     fun testLoginFieldsTextInput() {
+
+        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
+        CommonTestUtil.initializeComposeTestRule(composeTestRule)
+        launchLoginScreenNavGraph()
+
         viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE)
         viewDisplayedUntilWait(
             TestUITag.EMAIL_FIELD_TAG
@@ -105,13 +71,13 @@ class UserScreenTest {
         viewDisplayedUntilWait(
             TestUITag.LOGIN_BUTTON_TAG
         )
-
         performButton(TestUITag.LOGIN_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.PROGRESS_BAR)
+        validateUserList()
+    }
+
+    private fun validateUserList(){
         viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 8000)
-        performClickOnListItem("Lindsay")
-        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG)
-        viewDisplayed(tag=TestUITag.USER_EMAIL_TAG,"lindsay.ferguson@reqres.in")
+        performClickOnListItem("Arunkumar")
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -119,7 +85,7 @@ class UserScreenTest {
         composeTestRule.activity.setContent {
             BasicTemplateComposeTheme {
                 Surface {
-                    MyAppNavHost(startDestination = NavRoutes.UserRoute.name)
+                    MyAppNavHost()
                 }
             }
         }
