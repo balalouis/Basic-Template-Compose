@@ -11,6 +11,7 @@ import com.basic.template.compose.CommonTestUtil.performInput
 import com.basic.template.compose.CommonTestUtil.viewDisplayedUntilWait
 import com.basic.template.compose.hilt.AppModule
 import com.basic.template.compose.hilt.NetworkModule
+import com.basic.template.compose.mock.MockWebServerDispatcher
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import com.basic.template.compose.util.TestUITag
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -25,31 +26,14 @@ import org.junit.Test
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class, NetworkModule::class)
-class RegistrationScreenTest {
-
-    @get:Rule(order = 0)
-    val hiltTestRule = HiltAndroidRule(this)
-
-    @get:Rule(order = 1)
-    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity> = createAndroidComposeRule<MainActivity>()
-
-    @get:Rule
-    val rule = DetectLeaksAfterTestSuccess()
-
-    @Before
-    fun setUp() {
-        hiltTestRule.inject()
-        launchLoginScreenNavGraph()
-        CommonTestUtil.initializeComposeTestRule(composeTestRule)
-    }
-
-    @After
-    fun stop() {
-        LeakAssertions.assertNoLeaks()
-    }
+class RegistrationScreenTest:BaseScreenTest() {
 
     @Test
     fun testRegiFieldsTextInput() {
+        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
+        CommonTestUtil.initializeComposeTestRule(composeTestRule)
+        launchLoginScreenNavGraph()
+
         validateSplashScreen()
         validateLoginScreen()
         validateTextFieldsForRegi()

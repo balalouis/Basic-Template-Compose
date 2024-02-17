@@ -18,6 +18,10 @@ class MockWebServerDispatcher {
                     MockResponse().setResponseCode(200)
                         .setBody(FileReader.readStringFromFile("login_success_response.json"))
                         .throttleBody(1024, 200L, TimeUnit.MILLISECONDS)
+                "/api/register" ->
+                    MockResponse().setResponseCode(200)
+                        .setBody(FileReader.readStringFromFile("registration_success_response.json"))
+                        .throttleBody(1024, 200L, TimeUnit.MILLISECONDS)
                 else -> MockResponse().setResponseCode(400)
             }
         }
