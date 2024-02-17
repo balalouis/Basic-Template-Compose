@@ -38,47 +38,36 @@ import javax.inject.Inject
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class, NetworkModule::class)
-class LoginScreenTest : BaseScreenTest() {
+open class BaseScreenTest {
 
-    @Test
-    fun testLoginFieldsTextInput() {
-        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
-        CommonTestUtil.initializeComposeTestRule(composeTestRule)
-        launchLoginScreenNavGraph()
+    @get:Rule(order = 0)
+    val hiltTestRule = HiltAndroidRule(this)
 
-        viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE)
-        viewDisplayedUntilWait(
-            TestUITag.EMAIL_FIELD_TAG
-        )
-        viewDisplayedUntilWait(
-            TestUITag.PASSWORD_FILED_TAG
-        )
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-        performInput(
-            TestUITag.EMAIL_FIELD_TAG,
-            composeTestRule.activity.resources.getString(R.string.test_user_email)
-        )
-        performInput(
-            TestUITag.PASSWORD_FILED_TAG,
-            composeTestRule.activity.resources.getString(R.string.test_user_password)
-        )
+    @get:Rule
+    val rule = DetectLeaksAfterTestSuccess()
 
-        viewDisplayed(
-            TestUITag.EMAIL_FIELD_TAG,
-            composeTestRule.activity.resources.getString(R.string.test_user_email)
-        )
-        viewDisplayed(
-            TestUITag.PASSWORD_FILED_TAG,
-            composeTestRule.activity.resources.getString(R.string.test_user_password)
-        )
+    @Inject
+    lateinit var okHttp: OkHttpClient
 
-        viewDisplayedUntilWait(
-            TestUITag.LOGIN_BUTTON_TAG
-        )
+    val mockWebServer = MockWebServer()
+    private lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
-        performButton(TestUITag.LOGIN_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.PROGRESS_BAR)
-        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE)
+    @Before
+    fun setUp() {
+        hiltTestRule.inject()
+        okHttp3IdlingResource = OkHttp3IdlingResource.create("okhttp", okHttp)
+        IdlingRegistry.getInstance().register(okHttp3IdlingResource)
+        mockWebServer.start(8080)
+    }
+
+    @After
+    fun stop() {
+        LeakAssertions.assertNoLeaks()
+        mockWebServer.shutdown()
+        IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
