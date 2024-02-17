@@ -112,4 +112,10 @@ dependencies {
     def cucumber_javaVersion = '7.14.0'
     androidTestImplementation "io.cucumber:cucumber-android:$cucumber_javaVersion"
     androidTestImplementation "io.cucumber:cucumber-android-hilt:$cucumber_javaVersion"
+
+    // Mock web server
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }
