@@ -22,6 +22,12 @@ object DrawerParams {
             R.string.drawer_about,
             R.drawable.ic_info,
             R.string.drawer_info_description
+        ),
+        AppDrawerItemInfo(
+            LogoutScreen.route,
+            R.string.drawer_logout,
+            R.drawable.log_out,
+            R.string.drawer_logout
         )
     )
 }

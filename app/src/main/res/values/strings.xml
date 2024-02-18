@@ -28,4 +28,5 @@
     <string name="drawer_info_description">About navigation button</string>
     <string name="user_list">User List</string>
     <string name="age">Age</string>
+    <string name="drawer_logout">Logout</string>
 </resources>

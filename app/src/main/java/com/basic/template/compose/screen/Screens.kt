@@ -38,3 +38,9 @@ object SettingsScreen : ScreenDestination {
     override val route: String
         get() = "Settings"
 }
+
+
+object LogoutScreen : ScreenDestination {
+    override val route: String
+        get() = "Logout"
+}

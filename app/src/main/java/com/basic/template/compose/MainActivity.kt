@@ -21,7 +21,10 @@ import com.basic.template.compose.navigation.NavRoutes
 import com.basic.template.compose.navigation.loginNavGraph
 import com.basic.template.compose.navigation.userNavGraph
 import com.basic.template.compose.screen.AboutScreen
+import com.basic.template.compose.screen.LoginScreen
+import com.basic.template.compose.screen.LogoutScreen
 import com.basic.template.compose.screen.SettingsScreen
+import com.basic.template.compose.screen.SplashScreen
 import com.basic.template.compose.screen.UserListScreen
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +76,15 @@ fun MainCompose(
                             SettingsScreen.route -> {
                                 navController.navigate(SettingsScreen.route) {
                                     popUpTo(NavRoutes.UserRoute.name) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+
+                            LogoutScreen.route -> {
+                                UserSession.token = ""
+                                navController.navigate(LoginScreen.route) {
+                                    popUpTo(UserListScreen.route) {
                                         inclusive = true
                                     }
                                 }
