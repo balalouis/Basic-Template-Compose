@@ -15,4 +15,6 @@ object TestUITag {
     const val DO_NOT_HAVE_ACCOUNT_TAG = "DO_NOT_HAVE_ACCOUNT_TAG"
     const val USER_DETAIL_TAG = "USER_DETAIL_TAG"
     const val USER_EMAIL_TAG = "USER_EMAIL_TAG"
+    const val USER_FIRST_NAME_TAG = "USER_FIRST_NAME_TAG"
+    const val USER_LAST_NAME_TAG = "USER_LAST_NAME_TAG"
 }

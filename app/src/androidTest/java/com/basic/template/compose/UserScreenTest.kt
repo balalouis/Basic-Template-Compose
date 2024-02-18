@@ -35,13 +35,7 @@ import javax.inject.Inject
 @UninstallModules(AppModule::class, NetworkModule::class, UrlModule::class)
 class UserScreenTest: BaseScreenTest() {
 
-    @Test
-    fun testLoginFieldsTextInput() {
-
-        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
-        CommonTestUtil.initializeComposeTestRule(composeTestRule)
-        launchLoginScreenNavGraph()
-
+    private fun validateLoginFields() {
         viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE)
         viewDisplayedUntilWait(
             TestUITag.EMAIL_FIELD_TAG
@@ -72,12 +66,26 @@ class UserScreenTest: BaseScreenTest() {
             TestUITag.LOGIN_BUTTON_TAG
         )
         performButton(TestUITag.LOGIN_BUTTON_TAG)
-        validateUserList()
     }
 
-    private fun validateUserList(){
+    @Test
+    fun validateUserList(){
+        mockWebServer.dispatcher = MockWebServerDispatcher().RequestDispatcher()
+        CommonTestUtil.initializeComposeTestRule(composeTestRule)
+        launchLoginScreenNavGraph()
+
+        validateLoginFields()
         viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 8000)
         performClickOnListItem("Arunkumar")
+    }
+
+    @Test
+    fun validateUserDetail(){
+        validateUserList()
+        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG)
+        viewDisplayed(TestUITag.USER_FIRST_NAME_TAG,"Arunkumar")
+        viewDisplayed(TestUITag.USER_LAST_NAME_TAG,"Veerannan")
+        viewDisplayed(TestUITag.USER_EMAIL_TAG,"arunkumar.veerannan@reqres.in")
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

@@ -29,8 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.basic.template.compose.appbar.MyAppBar
+import com.basic.template.compose.util.TestUITag
 import com.basic.template.compose.util.TestUITag.USER_DETAIL_TAG
 import com.basic.template.compose.util.TestUITag.USER_EMAIL_TAG
+import com.basic.template.compose.util.TestUITag.USER_FIRST_NAME_TAG
+import com.basic.template.compose.util.TestUITag.USER_LAST_NAME_TAG
 import com.basic.template.network.model.NetworkResponse
 import model.RoomUser
 
@@ -109,13 +112,15 @@ fun UpdateUserDetail(roomUser: RoomUser?, paddingValues: PaddingValues) {
         Text(
             text = roomUser?.firstName!!,
             color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.testTag(USER_FIRST_NAME_TAG)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = roomUser.lastName!!,
             color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.testTag(USER_LAST_NAME_TAG)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
