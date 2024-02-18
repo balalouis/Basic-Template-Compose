@@ -1,4 +1,4 @@
-package com.basic.template.compose
+package com.basic.template.compose.uitest
 
 import android.app.Application
 import android.content.Context

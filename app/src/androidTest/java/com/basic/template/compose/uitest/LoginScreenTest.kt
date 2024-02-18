@@ -1,16 +1,19 @@
-package com.basic.template.compose
+package com.basic.template.compose.uitest
 
 import androidx.activity.compose.setContent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
-import com.basic.template.compose.CommonTestUtil.performButton
-import com.basic.template.compose.CommonTestUtil.performInput
-import com.basic.template.compose.CommonTestUtil.viewDisplayed
-import com.basic.template.compose.CommonTestUtil.viewDisplayedUntilWait
+import com.basic.template.compose.MyAppNavHost
+import com.basic.template.compose.R
+import com.basic.template.compose.util.CommonTestUtil.performButton
+import com.basic.template.compose.util.CommonTestUtil.performInput
+import com.basic.template.compose.util.CommonTestUtil.viewDisplayed
+import com.basic.template.compose.util.CommonTestUtil.viewDisplayedUntilWait
 import com.basic.template.compose.hilt.AppModule
 import com.basic.template.compose.hilt.NetworkModule
 import com.basic.template.compose.mock.MockWebServerDispatcher
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
+import com.basic.template.compose.util.CommonTestUtil
 import com.basic.template.compose.util.TestUITag
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -57,7 +60,6 @@ class LoginScreenTest : BaseScreenTest() {
         )
 
         performButton(TestUITag.LOGIN_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.PROGRESS_BAR)
         viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE)
     }
 

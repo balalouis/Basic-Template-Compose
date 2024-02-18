@@ -1,4 +1,4 @@
-package com.basic.template.compose
+package com.basic.template.compose.uitest
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

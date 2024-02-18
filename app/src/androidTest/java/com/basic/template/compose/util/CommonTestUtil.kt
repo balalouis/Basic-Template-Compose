@@ -1,4 +1,4 @@
-package com.basic.template.compose
+package com.basic.template.compose.util
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertTextEquals
@@ -9,12 +9,13 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.basic.template.compose.MainActivity
 
 object CommonTestUtil {
     private lateinit var composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>
 
     fun initializeComposeTestRule(composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>) {
-        this.composeTestRule = composeTestRule
+        CommonTestUtil.composeTestRule = composeTestRule
     }
 
     fun viewDisplayed(tag: String, validatedString: String) {
