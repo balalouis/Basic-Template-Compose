@@ -1,4 +1,4 @@
-package com.basic.template.compose.login.ui
+package com.basic.template.compose
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
