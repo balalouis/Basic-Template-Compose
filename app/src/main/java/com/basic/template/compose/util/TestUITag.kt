@@ -17,4 +17,5 @@ object TestUITag {
     const val USER_EMAIL_TAG = "USER_EMAIL_TAG"
     const val USER_FIRST_NAME_TAG = "USER_FIRST_NAME_TAG"
     const val USER_LAST_NAME_TAG = "USER_LAST_NAME_TAG"
+    const val NAVIGATION_DRAWER_TAG = "NAVIGATION_DRAWER_TAG"
 }

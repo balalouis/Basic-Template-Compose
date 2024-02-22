@@ -1,6 +1,7 @@
 package com.basic.template.compose.util
 
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
@@ -33,6 +34,10 @@ object CommonTestUtil {
 
     fun performClickOnListItem(tag: String){
         composeTestRule.onNodeWithText(tag).performClick()
+    }
+
+    fun viewWithTextDisplayed(tag: String){
+        composeTestRule.onNodeWithText(tag).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
