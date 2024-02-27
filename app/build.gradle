@@ -122,4 +122,7 @@ dependencies {
 
     // Espresso
     androidTestImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0")
+
+    // mockk
+    testImplementation 'io.mockk:mockk:1.13.4'
 }

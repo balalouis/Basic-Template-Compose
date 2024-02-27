@@ -20,7 +20,6 @@ import com.basic.template.network.api.ApiWebService
 import com.basic.template.room.UserDao
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
