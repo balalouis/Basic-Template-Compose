@@ -1,4 +1,4 @@
-package com.basic.template.compose.userdetail.data.datasource
+package com.basic.template.network.userdetail
 
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserDetailServerRootData

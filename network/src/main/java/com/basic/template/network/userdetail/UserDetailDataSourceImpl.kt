@@ -1,7 +1,6 @@
-package com.basic.template.compose.userdetail.data.datasource
+package com.basic.template.network.userdetail
 
 import android.util.Log
-import com.basic.template.compose.UserMapper
 import com.basic.template.network.api.ApiWebService
 import com.basic.template.network.api.BaseApi
 import com.basic.template.network.model.NetworkResponse

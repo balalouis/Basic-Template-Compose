@@ -1,4 +1,4 @@
-package com.basic.template.compose.userlist.data.datasource
+package com.basic.template.network.userlist
 
 import com.basic.template.network.api.ApiWebService
 import com.basic.template.network.api.BaseApi

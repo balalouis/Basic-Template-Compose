@@ -1,9 +1,9 @@
 package com.basic.template.compose.userlist.data.repo
 
-import com.basic.template.compose.userlist.data.datasource.UserListDataSource
 import com.basic.template.compose.userlist.domain.repo.UserListRepo
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserListRoot
+import com.basic.template.network.userlist.UserListDataSource
 import kotlinx.coroutines.flow.Flow
 
 class UserListRepoImpl(var userListDataSource: UserListDataSource) : UserListRepo {

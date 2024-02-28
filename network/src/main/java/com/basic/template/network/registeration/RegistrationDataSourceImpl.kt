@@ -1,4 +1,4 @@
-package com.basic.template.compose.registeration.data.datasource
+package com.basic.template.network.registeration
 
 import com.basic.template.network.api.ApiWebService
 import com.basic.template.network.api.BaseApi

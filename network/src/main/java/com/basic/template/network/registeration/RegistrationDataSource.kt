@@ -1,4 +1,4 @@
-package com.basic.template.compose.registeration.data.datasource
+package com.basic.template.network.registeration
 
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel

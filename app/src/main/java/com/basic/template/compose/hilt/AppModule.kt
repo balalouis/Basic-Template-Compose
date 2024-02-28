@@ -2,21 +2,21 @@ package com.basic.template.compose.hilt
 
 import com.basic.template.compose.login.data.repo.LoginRepoImpl
 import com.basic.template.compose.login.domain.repo.LoginRepo
-import com.basic.template.compose.registeration.data.datasource.RegistrationDataSource
-import com.basic.template.compose.registeration.data.datasource.RegistrationDataSourceImpl
 import com.basic.template.compose.registeration.data.repo.RegistrationRepoImpl
 import com.basic.template.compose.registeration.domain.repo.RegistrationRepo
-import com.basic.template.compose.userdetail.data.datasource.UserDetailDataSource
-import com.basic.template.compose.userdetail.data.datasource.UserDetailDataSourceImpl
 import com.basic.template.compose.userdetail.data.repo.UserDetailRepoImpl
 import com.basic.template.compose.userdetail.domain.repo.UserDetailRepo
-import com.basic.template.compose.userlist.data.datasource.UserListDataSource
-import com.basic.template.compose.userlist.data.datasource.UserListDataSourceImpl
 import com.basic.template.compose.userlist.data.repo.UserListRepoImpl
 import com.basic.template.compose.userlist.domain.repo.UserListRepo
 import com.basic.template.network.api.ApiWebService
 import com.basic.template.network.login.LoginDataSource
 import com.basic.template.network.login.LoginDataSourceImpl
+import com.basic.template.network.registeration.RegistrationDataSource
+import com.basic.template.network.registeration.RegistrationDataSourceImpl
+import com.basic.template.network.userdetail.UserDetailDataSource
+import com.basic.template.network.userdetail.UserDetailDataSourceImpl
+import com.basic.template.network.userlist.UserListDataSource
+import com.basic.template.network.userlist.UserListDataSourceImpl
 import com.basic.template.room.UserDao
 import dagger.Module
 import dagger.Provides
