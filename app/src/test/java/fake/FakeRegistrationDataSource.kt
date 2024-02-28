@@ -1,9 +1,9 @@
 package fake
 
-import com.basic.template.compose.registeration.data.datasource.RegistrationDataSource
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationResponseModel
+import com.basic.template.network.registeration.RegistrationDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,6 +1,6 @@
 package fake
 
-import com.basic.template.compose.login.data.datasource.LoginDataSource
+import com.basic.template.network.login.LoginDataSource
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginResponseModel
 import com.basic.template.network.model.NetworkResponse

@@ -1,8 +1,8 @@
 package fake
 
-import com.basic.template.compose.userlist.data.datasource.UserListDataSource
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserListRoot
+import com.basic.template.network.userlist.UserListDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
