@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.basic.template.compose.uitest.HiltTestRunner"
+        testInstrumentationRunner "com.basic.template.compose.hilt.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -123,10 +123,4 @@ dependencies {
     // Espresso
     androidTestImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0")
 
-    // mockk
-    testImplementation 'io.mockk:mockk:1.13.4'
-    testImplementation 'io.mockk:mockk-android:1.13.4'
-    testImplementation 'io.mockk:mockk-agent:1.13.4'
-
-    androidTestImplementation ("io.mockk:mockk-android:1.13.4")
 }
