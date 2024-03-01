@@ -1,11 +1,6 @@
-package login
+package com.login
 
-import CoroutineTestRule
-import com.basic.template.compose.login.data.repo.LoginRepoImpl
-import com.basic.template.compose.login.domain.usecases.LoginUseCases
 import com.basic.template.network.model.NetworkResponse
-import fake.FakeLoginDataSource
-import fake.TestDataUtil
 import org.junit.Rule
 import org.junit.Test
 

@@ -1,8 +1,7 @@
-package com.basic.template.compose.login.ui
+package com.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.basic.template.compose.login.domain.usecases.LoginUseCases
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginResponseModel
 import com.basic.template.network.model.NetworkResponse

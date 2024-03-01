@@ -16,3 +16,4 @@ rootProject.name = "Basic-Template-Compose"
 include ':app'
 include ':network'
 include ':room'
+include ':login'

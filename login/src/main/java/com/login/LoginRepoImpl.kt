@@ -1,6 +1,5 @@
-package com.basic.template.compose.login.data.repo
+package com.login
 
-import com.basic.template.compose.login.domain.repo.LoginRepo
 import com.basic.template.network.login.LoginDataSource
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginResponseModel

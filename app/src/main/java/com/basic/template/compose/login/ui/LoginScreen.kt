@@ -38,6 +38,7 @@ import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.compose.util.TestUITag
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.NetworkResponse
+import com.login.LoginViewModel
 import kotlinx.coroutines.launch
 
 private const val TAG = "LoginScreen"

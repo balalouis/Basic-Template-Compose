@@ -1,4 +1,4 @@
-package com.basic.template.compose.login.domain.repo
+package com.login
 
 import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.LoginResponseModel
