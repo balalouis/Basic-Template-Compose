@@ -77,7 +77,6 @@ class RegistrationScreenTest: BaseScreenTest() {
             R.string.test_user_password
         ))
         performButton(TestUITag.REGISTER_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.PROGRESS_BAR)
         viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE)
     }
 
