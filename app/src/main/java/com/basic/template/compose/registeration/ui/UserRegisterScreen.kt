@@ -39,6 +39,7 @@ import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.compose.util.TestUITag
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
+import com.example.registration.RegistrationViewModel
 import kotlinx.coroutines.launch
 
 

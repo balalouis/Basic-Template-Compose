@@ -1,4 +1,4 @@
-package com.basic.template.compose.registeration.domain.repo
+package com.example.registration
 
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel

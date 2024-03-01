@@ -9,11 +9,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.basic.template.compose.login.ui.LoginScreen
-import com.basic.template.compose.registeration.ui.RegistrationViewModel
 import com.basic.template.compose.registeration.ui.UserRegisterScreen
 import com.basic.template.compose.screen.LoginScreen
 import com.basic.template.compose.screen.RegisterScreen
 import com.basic.template.compose.screen.SplashScreen
+import com.example.registration.RegistrationViewModel
 import com.login.LoginViewModel
 
 fun NavGraphBuilder.loginNavGraph(navController: NavController) {

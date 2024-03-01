@@ -1,9 +1,7 @@
-package com.basic.template.compose.registeration.ui
+package com.example.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.basic.template.compose.registeration.domain.usecases.RegistrationUseCases
-import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationResponseModel

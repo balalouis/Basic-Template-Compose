@@ -1,12 +1,6 @@
-package registration
+package com.example.registration
 
-import CoroutineTestRule
-import com.basic.template.compose.registeration.data.repo.RegistrationRepoImpl
-import com.basic.template.compose.registeration.domain.usecases.RegistrationUseCases
-import com.basic.template.compose.registeration.ui.RegistrationViewModel
 import com.basic.template.network.model.NetworkResponse
-import fake.FakeRegistrationDataSource
-import fake.TestDataUtil
 import org.junit.Rule
 import org.junit.Test
 

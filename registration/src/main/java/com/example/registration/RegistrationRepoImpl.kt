@@ -1,6 +1,5 @@
-package com.basic.template.compose.registeration.data.repo
+package com.example.registration
 
-import com.basic.template.compose.registeration.domain.repo.RegistrationRepo
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationRequestModel
 import com.basic.template.network.model.RegistrationResponseModel
