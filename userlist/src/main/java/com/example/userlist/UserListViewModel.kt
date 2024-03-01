@@ -1,8 +1,7 @@
-package com.basic.template.compose.userlist.ui
+package com.example.userlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.basic.template.compose.userlist.domain.usecases.UserListUseCases
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserListRoot
 import dagger.hilt.android.lifecycle.HiltViewModel

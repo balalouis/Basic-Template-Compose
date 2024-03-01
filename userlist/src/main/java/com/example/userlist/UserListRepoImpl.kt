@@ -1,6 +1,5 @@
-package com.basic.template.compose.userlist.data.repo
+package com.example.userlist
 
-import com.basic.template.compose.userlist.domain.repo.UserListRepo
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserListRoot
 import com.basic.template.network.userlist.UserListDataSource

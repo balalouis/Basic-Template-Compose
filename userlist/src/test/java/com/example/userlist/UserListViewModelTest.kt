@@ -1,12 +1,6 @@
-package user
+package com.example.userlist
 
-import CoroutineTestRule
-import com.basic.template.compose.userlist.data.repo.UserListRepoImpl
-import com.basic.template.compose.userlist.domain.usecases.UserListUseCases
-import com.basic.template.compose.userlist.ui.UserListViewModel
 import com.basic.template.network.model.NetworkResponse
-import fake.FakeUserListDataSource
-import fake.TestDataUtil
 import org.junit.Rule
 import org.junit.Test
 

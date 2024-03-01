@@ -1,4 +1,4 @@
-package com.basic.template.compose.login.ui
+package com.basic.template.compose.screen
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -8,16 +8,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,36 +31,34 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.basic.template.compose.R
-import com.basic.template.compose.UserSession
 import com.basic.template.compose.components.BackButton
 import com.basic.template.compose.navigation.NavRoutes
-import com.basic.template.compose.userlist.ui.ProgressBar
 import com.basic.template.compose.util.TestUITag
-import com.basic.template.network.model.LoginRequestModel
 import com.basic.template.network.model.NetworkResponse
-import com.login.LoginViewModel
+import com.basic.template.network.model.RegistrationRequestModel
+import com.example.registration.RegistrationViewModel
 import kotlinx.coroutines.launch
 
-private const val TAG = "LoginScreen"
+
+private const val TAG = "RegisterScreen"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    navController: NavController,
-    onNavigateToRegister: (Int) -> Unit,
+fun UserRegisterScreen(
+    navControllerObj: NavController,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>,
-    loginViewModel: LoginViewModel,
-    title: String = "",
+    onNavigateToLogin: (Int) -> Unit,
+    registrationViewModel: RegistrationViewModel,
+    title: String,
     showBackButton: Boolean = true
 ) {
     Scaffold(topBar = {
-        CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
+        TopAppBar(title = { Text(text = title) }, navigationIcon = {
             if (showBackButton) {
                 BackButton {
-                    navController.popBackStack()
+                    navControllerObj.popBackStack()
                 }
             }
         })
@@ -69,24 +69,21 @@ fun LoginScreen(
                 .padding(it),
             verticalArrangement = Arrangement.Center
         ) {
-            LoginText()
-            LoginTextFields(userName, password)
-            LoginButton(
-                navController,
-                loginViewModel,
-                userName = userName,
-                password = password
-            )
-            SignUp(onNavigateToRegister)
+            RegisterText()
+            RegisterTextFields(userName, password)
+            RegisterButton(navControllerObj, registrationViewModel, userName, password)
+            SignIn(onNavigateToLogin)
         }
     }
+
+
 }
 
 @Composable
-fun LoginText() {
+fun RegisterText() {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = stringResource(id = R.string.login), modifier = Modifier.padding(
+            text = stringResource(id = R.string.register), modifier = Modifier.padding(
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
@@ -97,7 +94,7 @@ fun LoginText() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginTextFields(
+fun RegisterTextFields(
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>
 ) {
@@ -105,56 +102,55 @@ fun LoginTextFields(
         TextField(
             value = userName.value,
             onValueChange = { userName.value = it },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.email),
-                    modifier = Modifier.testTag(TestUITag.EMAIL_TAG)
-                )
-            },
+            label = { Text(text = stringResource(id = R.string.email)) },
             singleLine = true,
             modifier = Modifier
-                .padding(all = dimensionResource(id = R.dimen.dp_8))
-                .fillMaxWidth()
-                .testTag(TestUITag.EMAIL_FIELD_TAG),
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.EMAIL_FIELD_TAG)
+                .fillMaxWidth(),
         )
 
         TextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.password),
-                    modifier = Modifier.testTag(TestUITag.PASSWORD_TAG)
-                )
-            },
+            label = { Text(text = stringResource(id = R.string.password)) },
             singleLine = true,
             modifier = Modifier
-                .padding(all = dimensionResource(id = R.dimen.dp_8))
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.PASSWORD_FILED_TAG)
                 .fillMaxWidth()
-                .testTag(TestUITag.PASSWORD_FILED_TAG)
+        )
+
+        val confirmPasswordValue = remember { mutableStateOf(TextFieldValue()) }
+        TextField(
+            value = confirmPasswordValue.value,
+            onValueChange = { confirmPasswordValue.value = it },
+            label = { Text(text = stringResource(id = R.string.confirm_password)) },
+            singleLine = true,
+            modifier = Modifier
+                .padding(all = dimensionResource(id = R.dimen.dp_8)).testTag(TestUITag.CONFIRM_PASSWORD_FILED_TAG)
+                .fillMaxWidth()
         )
     }
 }
 
 @Composable
-fun LoginButton(
-    navController: NavController = rememberNavController(),
-    loginViewModel: LoginViewModel,
+fun RegisterButton(
+    navControllerObj: NavController,
+    registrationViewModel: RegistrationViewModel,
     userName: MutableState<TextFieldValue>,
     password: MutableState<TextFieldValue>
 ) {
-    val loginRequestModel =
-        LoginRequestModel(email = userName.value.text, password = password.value.text)
+
+    val registrationRequestModel =
+        RegistrationRequestModel(email = userName.value.text, password = password.value.text)
     val scope = rememberCoroutineScope()
-    val uiState by loginViewModel.uiState.collectAsState()
+    val uiState by registrationViewModel.uiState.collectAsState()
+
     when (uiState) {
         is NetworkResponse.Success -> {
-            val token = (uiState as NetworkResponse.Success).data?.token
-            if (token?.isNotEmpty() == true) {
-                UserSession.token = token
+            if ((uiState as NetworkResponse.Success).data?.token?.isNotEmpty() == true) {
                 LaunchedEffect(Unit) {
-                    navController.navigate(NavRoutes.UserRoute.name) {
-                        popUpTo(com.basic.template.compose.screen.LoginScreen.route) {
+                    navControllerObj.navigate(NavRoutes.UserRoute.name) {
+                        popUpTo(LoginScreen.route) {
                             inclusive = true
                         }
                     }
@@ -175,10 +171,11 @@ fun LoginButton(
 
         else -> {}
     }
+
     Button(
         onClick = {
             scope.launch {
-                loginViewModel.loginApiViewModel(loginRequestModel)
+                registrationViewModel.registrationViaApiViewModel(registrationRequestModel)
             }
         }, modifier = Modifier
             .fillMaxWidth()
@@ -186,30 +183,28 @@ fun LoginButton(
                 start = dimensionResource(
                     id = R.dimen.dp_8
                 ), end = dimensionResource(id = R.dimen.dp_8)
-            )
-            .testTag(TestUITag.LOGIN_BUTTON_TAG)
+            ).testTag(TestUITag.REGISTER_BUTTON_TAG)
     ) {
-        Text(text = stringResource(id = R.string.login))
+        Text(text = stringResource(id = R.string.register))
     }
 }
 
 @Composable
-fun SignUp(onClickToRegister: (Int) -> Unit) {
+fun SignIn(onClickToLogin: (Int) -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         ClickableText(
-            text = AnnotatedString(stringResource(id = R.string.do_not_have_an_account)),
-            onClick = onClickToRegister,
+            text = AnnotatedString(stringResource(id = R.string.all_ready_have_an_account)),
             modifier = Modifier.padding(
                 all = dimensionResource(
                     id = R.dimen.dp_8
                 )
-            ).testTag(TestUITag.DO_NOT_HAVE_ACCOUNT_TAG)
+            ), onClick = onClickToLogin
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-//    LoginScreen()
+fun RegisterScreenPreview() {
+//    RegisterScreen()
 }

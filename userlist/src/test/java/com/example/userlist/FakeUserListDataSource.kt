@@ -1,4 +1,4 @@
-package fake
+package com.example.userlist
 
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserListRoot
