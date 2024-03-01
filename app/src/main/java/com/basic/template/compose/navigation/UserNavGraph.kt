@@ -16,10 +16,10 @@ import com.basic.template.compose.screen.AboutScreen
 import com.basic.template.compose.screen.SettingsScreen
 import com.basic.template.compose.screen.UserDetailScreen
 import com.basic.template.compose.screen.UserListScreen
-import com.basic.template.compose.userdetail.ui.UserDetailViewModel
-import com.basic.template.compose.userdetail.ui.UserDetailWithAppBar
+import com.basic.template.compose.screen.UserDetailWithAppBar
 import com.basic.template.compose.screen.UserListWithAppBar
 import com.example.userlist.UserListViewModel
+import com.userdetail.UserDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 fun NavGraphBuilder.userNavGraph(navController: NavController, drawerState: DrawerState) {

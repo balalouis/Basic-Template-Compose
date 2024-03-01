@@ -1,7 +1,5 @@
 package com.basic.template.compose.hilt
 
-import com.basic.template.compose.userdetail.data.repo.UserDetailRepoImpl
-import com.basic.template.compose.userdetail.domain.repo.UserDetailRepo
 import com.basic.template.network.api.ApiWebService
 import com.basic.template.network.login.LoginDataSource
 import com.basic.template.network.login.LoginDataSourceImpl
@@ -18,6 +16,8 @@ import com.example.userlist.UserListRepo
 import com.example.userlist.UserListRepoImpl
 import com.login.LoginRepo
 import com.login.LoginRepoImpl
+import com.userdetail.UserDetailRepo
+import com.userdetail.UserDetailRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

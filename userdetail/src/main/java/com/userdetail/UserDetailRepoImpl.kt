@@ -1,6 +1,5 @@
-package com.basic.template.compose.userdetail.data.repo
+package com.userdetail
 
-import com.basic.template.compose.userdetail.domain.repo.UserDetailRepo
 import com.basic.template.network.userdetail.UserDetailDataSource
 import kotlinx.coroutines.flow.Flow
 import model.RoomUser

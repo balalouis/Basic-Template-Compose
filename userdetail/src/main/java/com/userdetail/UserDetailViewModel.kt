@@ -1,10 +1,7 @@
-package com.basic.template.compose.userdetail.ui
+package com.userdetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
-import com.basic.template.compose.userdetail.domain.usecases.UserDetailUseCases
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserDetailServerRootData
 import dagger.hilt.android.lifecycle.HiltViewModel

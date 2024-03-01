@@ -1,6 +1,5 @@
-package com.basic.template.compose.userdetail.domain.usecases
+package com.userdetail
 
-import com.basic.template.compose.userdetail.domain.repo.UserDetailRepo
 import kotlinx.coroutines.flow.Flow
 import model.RoomUser
 import javax.inject.Inject

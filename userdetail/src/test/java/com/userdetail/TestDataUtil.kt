@@ -1,11 +1,11 @@
-package fake
+package com.userdetail
 
-import com.basic.template.compose.UserMapper
 import com.basic.template.network.model.LoginResponseModel
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.RegistrationResponseModel
 import com.basic.template.network.model.UserDetailServerRootData
 import com.basic.template.network.model.UserListRoot
+import com.basic.template.network.userdetail.UserMapper
 import com.google.gson.GsonBuilder
 import model.RoomUser
 import java.io.IOException

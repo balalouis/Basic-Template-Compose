@@ -1,4 +1,4 @@
-package com.basic.template.compose.userdetail.domain.repo
+package com.userdetail
 
 import com.basic.template.network.model.NetworkResponse
 import com.basic.template.network.model.UserDetailServerRootData
