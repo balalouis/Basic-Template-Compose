@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.espresso.IdlingRegistry
 import com.basic.template.compose.MainActivity
 import com.basic.template.compose.MyAppNavHost
+import com.basic.template.compose.UserSession
 import com.basic.template.compose.hilt.AppModule
 import com.basic.template.compose.hilt.NetworkModule
 import com.basic.template.compose.ui.theme.BasicTemplateComposeTheme
@@ -44,6 +45,7 @@ open class BaseScreenTest {
 
     @Before
     fun setUp() {
+        UserSession.token = ""
         hiltTestRule.inject()
         okHttp3IdlingResource = OkHttp3IdlingResource.create("okhttp", okHttp)
         IdlingRegistry.getInstance().register(okHttp3IdlingResource)
