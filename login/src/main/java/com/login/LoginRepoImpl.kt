@@ -6,7 +6,7 @@ import com.basic.template.network.model.LoginResponseModel
 import com.basic.template.network.model.NetworkResponse
 import kotlinx.coroutines.flow.Flow
 
-class LoginRepoImpl(var loginDataSource: LoginDataSource):LoginRepo {
+class LoginRepoImpl(private var loginDataSource: LoginDataSource):LoginRepo {
     override fun login(loginRequestModel: LoginRequestModel): Flow<NetworkResponse<LoginResponseModel>> =
         loginDataSource.fetchLoginApi(loginRequestModel)
 }
