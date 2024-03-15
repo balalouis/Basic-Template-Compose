@@ -2,7 +2,7 @@ name: Android default CI/CD Jobs
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ 'feature/**' ]
 
   workflow_dispatch:
 
