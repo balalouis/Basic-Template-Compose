@@ -173,4 +173,4 @@ jobs:
             ${{ env.WORKFLOW_CONCLUSION }}:
             https://github.com/balalouis/Basic-Template-Compose/actions/runs/${{ github.run_id }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.COMPOSE_GIT_HUB_TOKEN }}
