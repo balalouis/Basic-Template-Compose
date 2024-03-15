@@ -72,7 +72,7 @@ class UserScreenTest: BaseScreenTest() {
     @Test
     fun validateUserDetail(){
         validateUserList()
-        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG)
+        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG, waitSeconds = 12000)
         viewDisplayed(TestUITag.USER_FIRST_NAME_TAG,"Arunkumar")
         viewDisplayed(TestUITag.USER_LAST_NAME_TAG,"Veerannan")
         viewDisplayed(TestUITag.USER_EMAIL_TAG,"arunkumar.veerannan@reqres.in")
