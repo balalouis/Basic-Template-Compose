@@ -28,10 +28,10 @@ class UserScreenTest: BaseScreenTest() {
     private fun validateLoginFields() {
         viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE)
         viewDisplayedUntilWait(
-            TestUITag.EMAIL_FIELD_TAG
+            TestUITag.EMAIL_FIELD_TAG, waitSeconds = WAIT_MILLI
         )
         viewDisplayedUntilWait(
-            TestUITag.PASSWORD_FILED_TAG
+            TestUITag.PASSWORD_FILED_TAG, waitSeconds = WAIT_MILLI
         )
 
         performInput(
@@ -53,7 +53,7 @@ class UserScreenTest: BaseScreenTest() {
         )
 
         viewDisplayedUntilWait(
-            TestUITag.LOGIN_BUTTON_TAG
+            TestUITag.LOGIN_BUTTON_TAG, waitSeconds = WAIT_MILLI
         )
         performButton(TestUITag.LOGIN_BUTTON_TAG)
     }
@@ -65,14 +65,14 @@ class UserScreenTest: BaseScreenTest() {
         launchLoginScreenNavGraph()
 
         validateLoginFields()
-        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 8000)
+        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = WAIT_MILLI)
         performClickOnListItem("Arunkumar")
     }
 
     @Test
     fun validateUserDetail(){
         validateUserList()
-        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG, waitSeconds = 12000)
+        viewDisplayedUntilWait(TestUITag.USER_DETAIL_TAG, waitSeconds = WAIT_MILLI)
         viewDisplayed(TestUITag.USER_FIRST_NAME_TAG,"Arunkumar")
         viewDisplayed(TestUITag.USER_LAST_NAME_TAG,"Veerannan")
         viewDisplayed(TestUITag.USER_EMAIL_TAG,"arunkumar.veerannan@reqres.in")
