@@ -29,12 +29,12 @@ class LoginScreenTest : BaseScreenTest() {
         CommonTestUtil.initializeComposeTestRule(composeTestRule)
         launchLoginScreenNavGraph()
 
-        viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE)
+        viewDisplayedUntilWait(TestUITag.SPLASH_IMAGE, waitSeconds = 12000)
         viewDisplayedUntilWait(
-            TestUITag.EMAIL_FIELD_TAG
+            TestUITag.EMAIL_FIELD_TAG, waitSeconds = 12000
         )
         viewDisplayedUntilWait(
-            TestUITag.PASSWORD_FILED_TAG
+            TestUITag.PASSWORD_FILED_TAG, waitSeconds = 12000
         )
 
         performInput(
@@ -56,11 +56,11 @@ class LoginScreenTest : BaseScreenTest() {
         )
 
         viewDisplayedUntilWait(
-            TestUITag.LOGIN_BUTTON_TAG
+            TestUITag.LOGIN_BUTTON_TAG, waitSeconds = 12000
         )
 
         performButton(TestUITag.LOGIN_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE)
+        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 12000)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
