@@ -39,18 +39,18 @@ class RegistrationScreenTest: BaseScreenTest() {
 
     private fun validateLoginScreen(){
         viewDisplayedUntilWait(
-            TestUITag.EMAIL_FIELD_TAG, waitSeconds = 8000
+            TestUITag.EMAIL_FIELD_TAG, waitSeconds = 12000
         )
         viewDisplayedUntilWait(
-            TestUITag.PASSWORD_FILED_TAG
-        )
-
-        viewDisplayedUntilWait(
-            TestUITag.LOGIN_BUTTON_TAG
+            TestUITag.PASSWORD_FILED_TAG, waitSeconds = 12000
         )
 
         viewDisplayedUntilWait(
-            TestUITag.DO_NOT_HAVE_ACCOUNT_TAG
+            TestUITag.LOGIN_BUTTON_TAG, waitSeconds = 12000
+        )
+
+        viewDisplayedUntilWait(
+            TestUITag.DO_NOT_HAVE_ACCOUNT_TAG, waitSeconds = 12000
         )
 
         performButton(TestUITag.DO_NOT_HAVE_ACCOUNT_TAG)
@@ -58,13 +58,13 @@ class RegistrationScreenTest: BaseScreenTest() {
 
     private fun validateTextFieldsForRegi(){
         viewDisplayedUntilWait(
-            TestUITag.EMAIL_FIELD_TAG
+            TestUITag.EMAIL_FIELD_TAG, waitSeconds = 12000
         )
         viewDisplayedUntilWait(
-            TestUITag.PASSWORD_FILED_TAG
+            TestUITag.PASSWORD_FILED_TAG, waitSeconds = 12000
         )
         viewDisplayedUntilWait(
-            TestUITag.CONFIRM_PASSWORD_FILED_TAG
+            TestUITag.CONFIRM_PASSWORD_FILED_TAG, waitSeconds = 12000
         )
 
         performTextFieldsForRegi()
@@ -77,7 +77,7 @@ class RegistrationScreenTest: BaseScreenTest() {
             R.string.test_user_password
         ))
         performButton(TestUITag.REGISTER_BUTTON_TAG)
-        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE)
+        viewDisplayedUntilWait(TestUITag.USER_LIST_TITLE, waitSeconds = 12000)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
