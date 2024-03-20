@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156469375429",
+    "project_id": "basic-template-compose",
+    "storage_bucket": "basic-template-compose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156469375429:android:dfb841b9161c204e0b1bac",
+        "android_client_info": {
+          "package_name": "com.basic.template.compose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBslZa5TTcEuLRMW-vL3uI3Oiv5pOD8fUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
