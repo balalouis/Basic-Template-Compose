@@ -2,7 +2,7 @@ name: Firebase test lab and Distribution app to tester
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "feature/**" ]
 
   workflow_dispatch:
 
