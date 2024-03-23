@@ -100,6 +100,6 @@ jobs:
           username: "Pull Request Build Status"
           text: |
             ${{ env.WORKFLOW_CONCLUSION }}:
-            https://github.com/balalouis/POC-Compose-UI-Testing/actions/runs/${{ github.run_id }}
+            https://github.com/balalouis/Basic-Template-Compose/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
